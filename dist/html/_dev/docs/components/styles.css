@@ -1,0 +1,171 @@
+@charset "UTF-8";
+/* =============================================//
+//
+// - コンポーネントリスト
+//
+//============================================ */
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+/* カラーの設定
+/*+---------------------------------*/
+/* 全体
+/*+---------------------------------*/
+body {
+  background-color: #fff;
+  font-family: "Source Sans Pro";
+}
+body a {
+  color: #000098;
+  text-decoration: none;
+}
+body a:hover {
+  color: #000098;
+}
+
+/* ヘッダー
+/*+---------------------------------*/
+.cm-header {
+  position: relative;
+  margin-bottom: 32px;
+  padding: 32px;
+  background-color: #00004c;
+  letter-spacing: 1px;
+}
+.cm-header-label {
+  position: absolute;
+  top: 16px;
+  left: 36px;
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 11px;
+  line-height: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  color: #00004c;
+}
+.cm-header-heading {
+  color: #fff;
+  font-size: 48px;
+  font-weight: normal;
+  line-height: 1.2;
+  font-weight: 200;
+}
+.cm-header-link {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  text-align: right;
+}
+.cm-header-link a {
+  color: #fff;
+}
+.cm-header-link a:hover {
+  color: #fff;
+}
+
+/* main
+/*+---------------------------------*/
+.cm-container {
+  display: flex;
+  padding: 0 10px;
+}
+
+.cm-contents {
+  width: calc(100% - 240px);
+}
+
+.cm-group {
+  margin-bottom: 240px;
+}
+.cm-group-heading {
+  margin-bottom: 24px;
+  font-size: 48px;
+  color: #00004c;
+}
+
+.cm-block {
+  margin-bottom: 80px;
+}
+.cm-block-heading {
+  margin-bottom: 8px;
+  color: #00004c;
+  font-size: 32px;
+}
+.cm-block-heading span {
+  display: inline-block;
+  margin-left: 16px;
+  font-size: 16px;
+  color: #00004c;
+  font-weight: normal;
+}
+.cm-block-heading span::before {
+  content: "/";
+  display: inline-block;
+  padding-right: 16px;
+}
+
+.cm-no-block {
+  margin-bottom: 80px;
+}
+
+.cm-code {
+  display: block;
+  margin-top: 16px;
+  padding: 4px;
+  width: 80%;
+  height: 140px;
+  background-color: #eee;
+  border: none;
+  font-family: "Roboto Mono";
+  color: #0074e0;
+  overflow: scroll;
+  font-size: 1.4rem;
+}
+
+.cm-option {
+  margin-top: 16px;
+}
+.cm-option li {
+  margin-bottom: 4px;
+}
+.cm-option li:before {
+  display: inline-block;
+  position: relative;
+  top: -2px;
+  content: "";
+  margin-right: 10px;
+  width: 8px;
+  height: 8px;
+  background-color: #00004c;
+  border-radius: 4px;
+}
+
+/* side
+/*+---------------------------------*/
+.cm-sidebar {
+  position: sticky;
+  top: 0;
+  padding: 8px 0 0 24px;
+  width: 240px;
+  height: 100%;
+  border-left: 1px solid #ccc;
+}
+
+.cm-navigation-heading {
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #00004c;
+}
+
+.cm-navigation-list li {
+  margin-bottom: 10px;
+}
+.cm-navigation-list li a.active {
+  color: #000098;
+  font-weight: bold;
+}
+.cm-navigation-list li a:hover {
+  color: #000098;
+  font-weight: bold;
+}
