@@ -1,0 +1,186 @@
+@charset "UTF-8";
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+body {
+  line-height: 1;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+nav ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: none;
+}
+
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+ins {
+  background-color: #ff9;
+  color: #222;
+  text-decoration: none;
+}
+
+mark {
+  background-color: #ff9;
+  color: #222;
+  font-style: italic;
+  font-weight: bold;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+input, select {
+  vertical-align: middle;
+}
+
+img {
+  vertical-align: top;
+}
+img[usemap] {
+  border-width: 0;
+}
+a img {
+  border-width: 0;
+  text-decoration: none;
+}
+
+ul, li {
+  list-style: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  color: #333;
+  font-size: 1.6rem;
+  line-height: 2;
+  -webkit-text-size-adjust: none;
+  font-family: "Noto Sans JP", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo UI", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 1.4rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+.l-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.c-heading-title1 {
+  display: flex;
+  align-items: center;
+  font-size: 4rem;
+  line-height: 1.4;
+}
+.c-heading-title1 + * {
+  margin-top: 48px;
+}
+@media screen and (max-width: 768px) {
+  .c-heading-title1 + * {
+    margin-top: 32px;
+  }
+}
+
+.u-show-only.-pc {
+  display: block;
+}
+@media screen and (max-width: 768px) {
+  .u-show-only.-pc {
+    display: none;
+  }
+}
+.u-show-only.-sp {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .u-show-only.-sp {
+    display: block;
+  }
+}
+
+.u-clearfix::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.u-text-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(50%);
+          clip-path: inset(50%);
+  position: absolute;
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.u-sp-only-link {
+  pointer-events: auto;
+}
+@media screen and (min-width: 768px) {
+  .u-sp-only-link {
+    pointer-events: none;
+  }
+}

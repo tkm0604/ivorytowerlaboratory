@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+//=============================================//
+//
+// - global --> function.scss
+//
+//=============================================//
+@use "sass:math";
+
+// letter-spacing
+// ex) letter-spacing: g.ls(50);
+//---------------------
+@function ls($tracking) {
+  @return math.div($tracking, 1000) + em;
+}
+
+// line-height
+// ex) line-height: g.lh(18, 36);
+//---------------------
+@function lh($fontsize, $lin) {
+  @return math.div($lin, $fontsize);
+}

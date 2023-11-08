@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>案件名 ivorytowerlabポートフォリオ</title>
+  </head>
+  <body>
+    <header class="pg-header">
+      <p class="pg-header-label">FRONTEND</p>
+      <h1 class="pg-header-heading">PageList</h1>
+      <p class="pg-header-link"><a href="../components/">→Components List</a><span>/ </span><a href="../components/components.html" target="_blank">→Components Sample</a></p>
+    </header>
+    <main class="pagelist-main"><input type="text" id="pagelist-search" class="pagelist-search-textbox" placeholder="検索キーワード">
+      <section class="pagelist-block">
+        <h2 class="pagelist-block-heading">ページリスト 中間ファイルとWPがあるとき</h2>
+        <div class="pagelist-head">
+          <div class="no">ページNo</div>
+          <div class="name">画面名</div>
+          <div class="link">リンク</div>
+          <div class="wp-link">WPリンク</div>
+          <div class="option">備考</div>
+        </div>
+        <ul class="pagelist-list">
+          <li><span class="no">1</span><span class="name">トップページ</span><a class="link" href="/_dev/template/index.html" target="_blank"></a><a class="wp-link" href="/" target="_blank"></a><span class="option"> </span></li>
+        </ul>
+      </section>
+      <section class="pagelist-block">
+        <h2 class="pagelist-block-heading">ページリスト</h2>
+        <div class="pagelist-head -static">
+          <div class="no">ページNo</div>
+          <div class="name">画面名</div>
+          <div class="link">リンク</div>
+          <div class="option">備考</div>
+        </div>
+        <ul class="pagelist-list -static">
+          <li><span class="no">1</span><span class="name">トップページ</span><a class="link" href="/" target="_blank"></a><span class="option"> </span></li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script>
+  $('.pagelist-list .link').each(function() {
+   $(this).text($(this).attr('href'));
+  });
+  $('.pagelist-list .wp-link').each(function() {
+   $(this).text($(this).attr('href'));
+  });
+  function searchProject() {
+   searchWord = function(){
+     const searchText = $(this).val();
+     let targetText;
+  
+     $('.pagelist-list li').each(function() {
+       targetText = $(this).text();
+       if (targetText.indexOf(searchText) != -1) {
+         $(this).removeClass('hidden');
+       } else {
+         $(this).addClass('hidden');
+       }
+     });
+   };
+  
+  $('#pagelist-search').on('input', searchWord);
+  }
+  searchProject();
+</script>

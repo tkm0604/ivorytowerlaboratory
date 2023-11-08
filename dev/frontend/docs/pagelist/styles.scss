@@ -1,0 +1,197 @@
+@charset "UTF-8";
+
+/* =============================================//
+//
+// - ページリスト
+//
+//============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+
+/* カラーの設定
+/*+---------------------------------*/
+$headingColor : #00004c;
+$headingSubColor : #eee;
+$linkColor    : #000098;
+$pagelistText : #333;
+$pagelistHoverBg   : #dfe5f3;
+$pagelistHoverText : #0a3bb7;
+
+/* 全体
+/*+---------------------------------*/
+body {
+  font-family: 'Source Sans Pro';
+
+  a {
+    color: $linkColor;
+    text-decoration: none;
+
+    &:hover {
+      color: $linkColor;
+    }
+  }
+}
+
+/* ヘッダー
+/*+---------------------------------*/
+.pg-header {
+  position: relative;
+  margin-bottom: 32px;
+  padding: 32px;
+  background-color: $headingColor;
+  letter-spacing: 1px;
+
+  &-label {
+    position: absolute;
+    top: 16px;
+    left: 36px;
+    display: inline-block;
+    padding: 2px 4px;
+    font-size: 11px;
+    line-height: 1.0;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    color: $headingColor;
+  }
+  
+  &-heading {
+    color: #fff;
+    font-size: 48px;
+    font-weight: normal;
+    line-height: 1.2;
+    font-weight: 200;
+  }
+
+  &-link {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    text-align: right;
+    color: #fff;
+    
+    a {
+      color: #fff;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+
+    span {
+      display: inline-block;
+      padding: 0 24px;
+    }
+  }
+}
+
+
+/* main
+/*+---------------------------------*/
+.pagelist-main  {
+  padding: 0 40px;
+
+  @media screen and (max-width: 800px) {
+    padding: 0 8px;
+  }
+}
+
+.pagelist-block {
+  margin-bottom: 30px;
+
+  &-heading {
+    margin-bottom: 4px;
+    padding: 4px 8px;
+    font-size: 18px;
+    background-color: $headingColor;
+    color: #fff;
+    font-weight: normal;
+  }
+}
+
+.pagelist-head {
+  display: grid;
+  grid-template-columns: 8% 27% 25% 25% 15%;
+  background-color: $headingSubColor;
+  text-align: center;
+  font-size: 11px;
+  
+  * {
+    padding: 4px;
+    border-right: 1px solid #fff;
+  }
+
+  &.-static {
+    grid-template-columns: 8% 27% 40% 25%;
+  }
+}
+
+.pagelist-list {
+  li {
+    display: grid;
+    grid-template-columns: 8% 27% 25% 25% 15%;
+    border-bottom: 1px dotted #eee;
+
+    * {
+      padding: 8px 4px;
+      border-right: 1px solid #fff;
+      word-wrap: break-word;
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    &.ph1 {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        display: inline-block;
+        content: '◯';
+        width: 20px;
+        height: 16px;
+        font-size: 10px;
+        color: #fff;
+        background-color: #01A299;
+        text-align: center;
+      }
+    }
+
+    .no {
+      text-align: center;
+    }
+  
+    .option {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .link,
+    .wp-link {
+      display: block;
+
+      &:hover {
+        background-color: $pagelistHoverBg;
+        color: $pagelistHoverText;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &.-static {
+    grid-template-columns: 8% 27% 40% 25%;
+  }
+}
+
+.pagelist-search-textbox {
+  margin-bottom: 32px;
+  padding: 8px;
+  font-size: 18px;
+  width: 300px;
+  border: 2px solid #333;
+
+  &::placeholder {
+    font-size: 12px;
+  }
+}

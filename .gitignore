@@ -1,39 +1,46 @@
+.DS_Store
+Thumbs.db
+node_modules
+
+dev/backend/mysql
+dev/backend/php
+
 # Wordpress - ignore core, configuration, examples, uploads and logs.
-# https://github.com/github/gitignore/blob/main/WordPress.gitignore
+# https:/github.com/github/gitignore/blob/main/WordPress.gitignore
 
 # Core
 #
 # Note: if you want to stage/commit WP core files
 # you can delete this whole section/until Configuration.
-/wp-admin/
-/wp-content/index.php
-/wp-content/languages
-/wp-content/plugins/index.php
-/wp-content/themes/index.php
-/wp-includes/
-/index.php
-/license.txt
-/readme.html
-/wp-*.php
-/xmlrpc.php
+/dist/html/ivorytowerlab/wp-admin/
+dist/html/ivorytowerlab/wp-content/index.php
+dist/html/ivorytowerlab/wp-content/languages
+dist/html/ivorytowerlab/wp-content/plugins/index.php
+dist/html/ivorytowerlab/wp-content/themes/index.php
+dist/html/ivorytowerlab/wp-includes/
+dist/html/ivorytowerlab/index.php
+dist/html/ivorytowerlab/license.txt
+dist/html/ivorytowerlab/readme.html
+dist/html/ivorytowerlab/wp-*.php
+dist/html/ivorytowerlab/xmlrpc.php
 
 # Configuration
-wp-config.php
+dist/html/ivorytowerlab/wp-config.php
 
 # Example themes
-/wp-content/themes/twenty*/
+dist/html/ivorytowerlab/wp-content/themes/twenty*/
 
 # Example plugin
-/wp-content/plugins/hello.php
+dist/html/ivorytowerlab/wp-content/plugins/hello.php
 
 # Uploads
-/wp-content/uploads/
+dist/html/ivorytowerlab/wp-content/uploads/
 
 # Log files
 *.log
 
 # htaccess
-/.htaccess
+dist/html/ivorytowerlab/.htaccess
 
 # All plugins
 #

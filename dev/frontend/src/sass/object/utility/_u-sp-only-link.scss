@@ -1,0 +1,12 @@
+@charset "utf-8";
+@use '../../global' as g;
+@use "sass:math";
+
+// --- SPだけでリンク活性化 --- //
+.u-sp-only-link {
+  pointer-events: auto;
+
+  @media screen and (min-width: g.$device-m) {
+    pointer-events: none;
+  }
+}

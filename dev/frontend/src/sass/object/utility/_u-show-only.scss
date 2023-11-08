@@ -1,0 +1,22 @@
+@charset "utf-8";
+@use '../../global' as g;
+@use "sass:math";
+
+// --- PC/SPどちらかで表示 --- //
+.u-show-only {
+  &.-pc {
+    display: block;
+
+    @media screen and (max-width: g.$device-m) {
+      display: none;
+    }
+  }
+
+  &.-sp {
+    display: none;
+
+    @media screen and (max-width: g.$device-m) {
+      display: block;
+    }
+  }
+}

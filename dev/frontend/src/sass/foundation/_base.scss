@@ -1,0 +1,35 @@
+@charset "utf-8";
+//=============================================//
+//
+// - foundation --> base.scss
+//
+//=============================================//
+@use "../global" as g;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: g.$bodyColor;
+  color: g.$fontColor;
+  font-size: g.$fontSize;
+  line-height: g.$lineHeight;
+  -webkit-text-size-adjust: none;
+  font-family: g.$fontFamily;
+
+  @media screen and (max-width: g.$device-m) {
+    font-size: g.$fontSizeSP;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: g.$linkColor;
+}

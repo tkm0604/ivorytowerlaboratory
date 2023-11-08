@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+//=============================================//
+//
+// - layout --> l-header.scss
+//
+//=============================================//
+@use '../global' as g;
+@use "sass:math";
+
+.l-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  &__logo {
+    a {
+      &:hover {
+      }
+    }
+  }
+}

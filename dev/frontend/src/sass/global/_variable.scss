@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+//=============================================//
+//
+// - global --> variables.scss
+//
+//=============================================//
+
+// font
+//---------------------
+$fontFamily       : 'Noto Sans JP', "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo UI", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+$fontFamilyEn     : 'Maven Pro', sans-serif;
+$fontSize         : 1.6rem;
+$fontSizeSP       : 1.4rem;
+$lineHeight       : 2.0;
+$bodyColor        : #fff;
+$fontColor        : #333;
+$linkColor        : #333;
+$hoverColor       : #4A8F69;
+
+// device size
+//---------------------
+$device-l      : 1280px;
+$device-m      : 768px;
+$device-s      : 375px;
+
+
+// color
+//---------------------
+
+
+
+
+// プロパティのソート順
+//---------------------
+//- display
+//- box-sizing
+//- overflow
+//- position
+//- float
+//- content
+//-------------
+//- margin
+//- padding
+//- border
+//-------------
+//- width
+//- height
+//-------------
+//- background-image
+//- background-repeat
+//- background-position
+//- background-size
+//- background-attachment
+//- background-color
+//-------------
+//- box-shadow
+//- transition
+//-------------
+//- text-align
+//- vertical-align
+//- text-indent
+//-------------
+//- color
+//- font-size
+//- line-height
+//-------------
+//- cursor

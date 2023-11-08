@@ -1,0 +1,12 @@
+@charset "utf-8";
+@use '../../global' as g;
+@use "sass:math";
+
+// --- clearfix --- //
+.u-clearfix {
+  &::after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+}

@@ -1,0 +1,44 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7
+    #container_name: "mysql57"
+    volumes:
+      - ./dev/backend/mysql:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass_fB3uWvTS
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user_pass_Ck6uTvrQ
+
+  wordpress:
+    image: wordpress:latest
+    volumes:
+      - ./dist/html/ivorytowerlab/:/var/www/html
+      - ./dev/backend/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress_db
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: user_pass_Ck6uTvrQ
+    logging:
+      driver: json-file
+      options:
+        max-size: "200m"
+        max-file: "10"
+
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    #container_name: "phpmyadmin"
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 8888:80
