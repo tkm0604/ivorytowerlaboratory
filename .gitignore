@@ -12,7 +12,7 @@ dev/backend/php
 #
 # Note: if you want to stage/commit WP core files
 # you can delete this whole section/until Configuration.
-/dist/html/ivorytowerlab/wp-admin/
+dist/html/ivorytowerlab/wp-admin/
 dist/html/ivorytowerlab/wp-content/index.php
 dist/html/ivorytowerlab/wp-content/languages
 dist/html/ivorytowerlab/wp-content/plugins/index.php
@@ -46,10 +46,10 @@ dist/html/ivorytowerlab/.htaccess
 #
 # Note: If you wish to whitelist plugins,
 # uncomment the next line
-#/wp-content/plugins
+# dist/html/ivorytowerlab/wp-content/plugins
 
 # All themes
 #
 # Note: If you wish to whitelist themes,
 # uncomment the next line
-#/wp-content/themes
+# dist/html/ivorytowerlab/wp-content/themes
