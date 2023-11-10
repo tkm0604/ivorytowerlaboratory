@@ -98,7 +98,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  background-color: #f2ede4;
   color: #3b4043;
   font-size: 1.6rem;
   line-height: 2;
@@ -131,6 +131,12 @@ img {
   align-items: center;
   width: 100%;
 }
+
+.l-footer {
+  background-color: #f2ede4;
+  text-align: center;
+}
+
 .c-heading-title1 {
   display: flex;
   align-items: center;
@@ -157,7 +163,7 @@ img {
 .p-header-inner__title {
   z-index: 100;
 }
-@media screen and (max-width: 589px) {
+@media screen and (max-width: 630px) {
   .p-header-inner__title {
     margin: 0 auto;
   }
@@ -166,7 +172,7 @@ img {
 .p-header-list__menu {
   display: flex;
 }
-@media screen and (max-width: 589px) {
+@media screen and (max-width: 630px) {
   .p-header-list__menu {
     display: none;
   }
@@ -195,7 +201,7 @@ img {
   z-index: 100;
   margin-left: 1.2rem;
 }
-@media screen and (max-width: 589px) {
+@media screen and (max-width: 630px) {
   .nav_toggle {
     display: block;
   }
@@ -255,6 +261,21 @@ img {
   flex-direction: column;
   vertical-align: middle;
   height: 100vh;
+}
+
+.p-footer-logo {
+  max-width: 319px;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.p-footer-bottom {
+  background-color: #000;
+}
+.p-footer-bottom__copyright {
+  color: #fff;
+  font-size: 1.4rem;
 }
 
 .u-show-only.-pc {

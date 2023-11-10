@@ -8,28 +8,26 @@
 
 // font
 //---------------------
-$fontFamily       : 'Noto Sans JP', "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo UI", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-$fontFamilyEn     : 'Maven Pro', sans-serif;
-$fontSize         : 1.6rem;
-$fontSizeSP       : 1.4rem;
-$lineHeight       : 2.0;
-$bodyColor        : #fff;
-$fontColor        : #3b4043;
-$linkColor        : #333;
-$hoverColor       : #4A8F69;
+$fontFamily: "Noto Sans JP", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo UI", "メイリオ", Meiryo, Osaka,
+    "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+$fontFamilyEn: "Maven Pro", sans-serif;
+$fontSize: 1.6rem;
+$fontSizeSP: 1.4rem;
+$lineHeight: 2;
+$bodyColor: #f2ede4;
+$fontColor: #3b4043;
+$linkColor: #333;
+$hoverColor: #4a8f69;
 
 // device size
 //---------------------
-$device-l      : 1280px;
-$device-m      : 803px;
-$device-s      : 375px;
-
+$device-l: 1280px;
+$device-m: 803px;
+$device-header: 630px;
+$device-s: 375px;
 
 // color
 //---------------------
-
-
-
 
 // プロパティのソート順
 //---------------------

@@ -1,0 +1,20 @@
+@charset "utf-8";
+@use "../../global" as g;
+@use "sass:math";
+
+.p-footer-logo{
+    max-width: 319px;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.p-footer-bottom{
+background-color: #000;
+
+&__copyright{
+    color:#fff;
+    font-size: 1.4rem;
+}
+
+}
