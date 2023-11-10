@@ -1,0 +1,48 @@
+@charset "utf-8";
+@use '../../global' as g;
+@use "sass:math";
+
+.p-header-inner{
+    max-width: 1280px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+
+    &__title{
+        z-index: 100;
+        @media screen and (max-width:589px) {
+            margin: 0 auto;
+        }
+    }
+}
+
+.p-header-list{
+
+    &__menu{
+        display: flex;
+        @media screen and (max-width: 589px) {
+            display: none;
+        }
+    }
+
+    &__item{
+        margin-right: 30px;
+    }
+
+    &__item:last-of-type{
+        margin-right: 0;
+    }
+
+    &__link{
+        font-size: 1.6rem;
+        color:g.$fontColor;
+        font-weight: bold;
+        transition : all 0.5s;
+     }
+
+    &__link:hover{
+       opacity: 0.8;
+    }
+}

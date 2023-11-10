@@ -23,7 +23,7 @@ body {
   line-height: g.$lineHeight;
   -webkit-text-size-adjust: none;
   font-family: g.$fontFamily;
-
+  background-image: url(/assets/img/common/ivory_tower_bg.jpeg);
   @media screen and (max-width: g.$device-m) {
     font-size: g.$fontSizeSP;
   }
@@ -32,4 +32,8 @@ body {
 a {
   text-decoration: none;
   color: g.$linkColor;
+}
+
+img{
+  width: 100%;
 }
