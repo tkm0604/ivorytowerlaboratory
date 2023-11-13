@@ -1,0 +1,13 @@
+@charset "utf-8";
+@use '../../global' as g;
+@use "sass:math";
+
+// --- 見出し1 --- //
+.c-section-title{
+  margin-bottom: 37px;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: .12em;
+  text-align: center;
+}
+

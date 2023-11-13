@@ -1,0 +1,52 @@
+@charset "utf-8";
+@use "../../global" as g;
+@use "sass:math";
+
+.p-about-me{
+    &__inner{
+        max-width: g.$device-l;
+        margin: 45px auto;
+        padding: 0 50px;
+        @media screen and (max-width:g.$device-m) {
+            padding: 0 20px;
+        }
+    }
+}
+
+.p-about-me-contents{
+    display: flex;
+    justify-content: center;
+    &__img{
+        width: 100%;
+        height: fit-content;
+        max-width: 250px;
+        margin-right:50px; 
+        @media screen and (max-width: g.$device-m) {
+            display: block;
+            margin: 0 auto 30px;
+        }
+    }
+    @media screen and (max-width: g.$device-m) {
+        display: block;
+    }
+}
+
+.p-about-me-txt{
+    &__wrap{
+        margin-bottom: 20px; 
+     }
+     &__wrap:last-of-type{
+         margin-bottom: 0;
+     }
+     &__heading{
+        margin-bottom: 15px;
+        line-height: 1.75;
+        letter-spacing: .05em;
+     }
+     &__strong{
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: .05em;
+     }
+}
+

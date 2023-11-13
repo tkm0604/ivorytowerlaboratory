@@ -9,7 +9,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-
+margin: 0 auto;
     &__title{
         z-index: 100;
         @media screen and (max-width:g.$device-header) {

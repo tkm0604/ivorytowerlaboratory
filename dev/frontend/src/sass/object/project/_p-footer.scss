@@ -18,3 +18,22 @@ background-color: #000;
 }
 
 }
+
+.page_top{
+    z-index: 99;
+    position: fixed;
+    right: 2px;
+    bottom: 87px;
+    width: 66px;
+    height: 66px;
+    padding: 7px 9px;
+    border: 2px solid #c9c19f;
+    border-radius: 50%;
+    background: -webkit-linear-gradient(135deg,#fff 25%,#f4f4ed 0,#f4f4ed 50%,#fff 0,#fff 75%,#f4f4ed 0,#f4f4ed);
+    background: linear-gradient(-45deg,#fff 25%,#f4f4ed 0,#f4f4ed 50%,#fff 0,#fff 75%,#f4f4ed 0,#f4f4ed);
+    background-size: 4px 4px;
+    color: #353535;
+    font-size: 16px;
+    text-decoration: none;
+    opacity: .6;
+}

@@ -1,0 +1,83 @@
+@charset "utf-8";
+@use "../../global" as g;
+@use "sass:math";
+
+.p-form {
+    border-bottom: 1px solid #000;
+}
+
+.p-contact-body {
+    max-width: g.$device-l;
+    width: 100%;
+    margin: 50px auto;
+}
+
+.p-input-item {
+    border-bottom: 1px solid #e8e4de;
+    background: #e5dccc;
+    color: #e8e4de;
+    &__inner {
+        display: flex;
+        font-size: 1.4rem;
+        padding: 46px 30px;
+        text-align: left;
+        vertical-align: top;
+        @media screen and (max-width:g.$device-l){
+            display: block;
+        }
+        @media screen and (max-width:g.$device-l) and (max-width:g.$device-m){
+            display: flex;
+            align-items: center;
+            padding: 2vw;
+        }
+    }
+    
+    &__inner-title {
+        margin-right: 12px;
+        color: #3b4043;
+        @media screen and (max-width:g.$device-l) and (max-width:g.$device-m){
+            margin-right: 12px;
+            margin-bottom: 0;
+        }
+    }
+
+    &__inner-req {
+        color: red;
+    }
+}
+
+.p-input-info {
+    width: 80%;
+    max-width: 900px;
+    padding: 2.5rem;
+    border-bottom: 1px solid #e8e8e8;
+    background: #fff;
+    color: #3b4043;
+    text-align: left;
+@media screen and (max-width:g.$device-m) {
+    display: block;
+    width: 100%;
+    padding: 2vw;
+}
+    &__txt {
+        width: 100%;
+        padding: 0.25em 0.5em;
+        font-size: 15px;
+    }
+
+    &__textarea{
+        width: 100%;
+    }
+}
+
+.p-input-tell{
+    display: flex;
+    width: 100%;
+    &__number{
+        width: 20%;
+        margin: 0 10px;  
+    }
+    &__number:first-of-type{
+        margin-left: 0;
+    }
+}
