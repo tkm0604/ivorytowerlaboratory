@@ -118,7 +118,7 @@ a {
 }
 
 img {
-  width: 100%;
+  max-width: 100%;
 }
 
 .l-header {
@@ -276,6 +276,25 @@ img {
 .p-footer-bottom__copyright {
   color: #fff;
   font-size: 1.4rem;
+}
+
+.p-mv {
+  background-color: #f2ede4;
+}
+.p-mv__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10% 0;
+  text-align: center;
+}
+@media screen and (max-width: 480px) {
+  .p-mv__inner {
+    margin: 0 10vw;
+  }
+}
+.p-mv__img {
+  display: block;
+  margin: 0 auto 20px;
 }
 
 .u-show-only.-pc {
