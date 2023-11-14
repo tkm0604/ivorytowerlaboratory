@@ -8,14 +8,15 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root_pass_fB3uWvTS
-      MYSQL_DATABASE: wordpress_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user_pass_Ck6uTvrQ
+      MYSQL_DATABASE: db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
 
   wordpress:
     image: wordpress:latest
     volumes:
       - ./dist/html/ivorytowerlab/:/var/www/html
+      - ./dist/html/assets/:/var/www/html/assets
       - ./dev/backend/php/php.ini:/usr/local/etc/php/conf.d/php.ini
     restart: always
     depends_on:
