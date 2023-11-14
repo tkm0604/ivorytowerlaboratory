@@ -297,9 +297,18 @@ img {
   background: linear-gradient(-45deg, #fff 25%, #f4f4ed 0, #f4f4ed 50%, #fff 0, #fff 75%, #f4f4ed 0, #f4f4ed);
   background-size: 4px 4px;
   color: #353535;
-  font-size: 16px;
+  font-size: 1.4rem;
   text-decoration: none;
-  opacity: 0.6;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+@media screen and (max-width: 803px) {
+  .page_top {
+    font-size: 0.6rem;
+    width: 33px;
+    height: 33px;
+    padding: 5px 6px;
+  }
 }
 
 .p-mv {
@@ -323,12 +332,12 @@ img {
 
 .p-about-me__inner {
   max-width: 1280px;
-  margin: 45px auto;
-  padding: 0 50px;
+  margin: 0 auto;
+  padding: 45px 50px;
 }
 @media screen and (max-width: 803px) {
   .p-about-me__inner {
-    padding: 0 20px;
+    padding: 20px;
   }
 }
 
@@ -377,12 +386,12 @@ img {
 }
 .p-works__inner {
   max-width: 1280px;
-  margin: 45px auto;
-  padding: 0 50px;
+  margin: 0 auto;
+  padding: 45px 50px;
 }
 @media screen and (max-width: 803px) {
   .p-works__inner {
-    padding: 0 20px;
+    padding: 20px;
   }
 }
 
@@ -432,12 +441,12 @@ img {
   background-color: #f2ede4;
 }
 .p-contact__inner {
-  margin: 45px auto 0;
-  padding: 0 50px;
+  margin: 0 auto;
+  padding: 45px 50px;
 }
 @media screen and (max-width: 803px) {
   .p-contact__inner {
-    padding: 0 20px;
+    padding: 20px;
   }
 }
 

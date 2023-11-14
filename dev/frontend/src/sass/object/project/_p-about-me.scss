@@ -5,10 +5,10 @@
 .p-about-me{
     &__inner{
         max-width: g.$device-l;
-        margin: 45px auto;
-        padding: 0 50px;
+        margin: 0 auto;
+        padding: 45px 50px;
         @media screen and (max-width:g.$device-m) {
-            padding: 0 20px;
+            padding: 20px;
         }
     }
 }

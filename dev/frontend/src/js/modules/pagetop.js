@@ -1,8 +1,15 @@
-export function pagetop() {
-  const btn = document.querySelector('.js-pagetop')
-  btn.addEventListener('click', pagetopLink)
-}
+window.onscroll = function () {
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100)
+  {
+    document.getElementById("pagetop").style.opacity = "0.7";
+  } else
+  {
+    document.getElementById("pagetop").style.opacity = "0";
 
-export const pagetopLink = () => {
-  window.scroll({ top: 0, behavior: 'smooth' })
-}
+  }  
+};
+
+document.getElementById("pagetop").addEventListener("click", function(e) {
+  e.preventDefault();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+});

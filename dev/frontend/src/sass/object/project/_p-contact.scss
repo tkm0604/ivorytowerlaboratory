@@ -5,10 +5,10 @@
 .p-contact {
     background-color: g.$bodyColor;
     &__inner {
-        margin: 45px auto 0;
-        padding: 0 50px;
+        margin: 0 auto;
+        padding: 45px 50px;
         @media screen and (max-width:g.$device-m) {
-            padding: 0 20px;
+            padding: 20px;
         }
     }
 }
