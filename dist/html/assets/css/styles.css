@@ -438,6 +438,26 @@ img {
   margin-right: 0;
 }
 
+.p-works_item__link_img {
+  border: 1px solid #333;
+  margin-bottom: 16px;
+}
+@media screen and (max-width: 803px) {
+  .p-works_item__link_img {
+    margin-bottom: 12px;
+  }
+}
+
+.p-works-item-txt__list {
+  display: flex;
+}
+.p-works-item-txt__list_item {
+  margin-right: 5px;
+}
+.p-works-item-txt__list_item:last-of-type {
+  margin-right: 0;
+}
+
 .p-contact {
   background-color: #f2ede4;
 }
