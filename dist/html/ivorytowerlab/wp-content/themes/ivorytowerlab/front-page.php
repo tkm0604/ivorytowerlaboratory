@@ -13,33 +13,47 @@
     <div class="p-about-me__inner">
       <h2 class="c-section-title">About Me</h2>
       <div class="p-about-me-contents">
+      <?php
+        $args = array(
+          'post_type' => 'about_me', 
+          'posts_per_page' => 1 
+        );
+        $about_me_query = new WP_Query($args); 
+
+        if ($about_me_query->have_posts()) :
+          while ($about_me_query->have_posts()) : $about_me_query->the_post();
+        ?>
+
         <img class="p-about-me-contents__img" src="/assets/img/common/face.png" alt="ivorytower_lab">
         <div class="p-about-me-txt">
 
           <div class="p-about-me-txt__wrap">
-            <p class="p-about-me-txt__heading">大阪在住webエンジニアの山口拓己と申します。<br>簡単ですが、以下に経歴と自身のスキルをまとめました。</p>
+            <p class="p-about-me-txt__heading"><?php echo SCF::get('about_me'); ?></p>
             <span class="p-about-me-txt__strong">経歴</span>
             <div class="p-about-me-career">
 
               <p class="p-about-me-career__txt">
-                会社員として会社が運営するwebショップを担当。HTML、CSSの編集、商品の販売を行う。<br>会社員の傍ら、2019年頃より副業としてサイトのコーディングを行い始める。<br>副業としてこれまでに、サイトコーディング、wordpressオリジナルテーマの作成、EC-CUBEサイト制作、shopifyサイトのカスタマイズ、wordpressサイトサーバー移転などを行なってきました。<br>2022年会社を退職。フリーランスエンジニアとしてサイトコーディング、wordpressオリジナルテーマの作成等を行なっています。<br>現在はバックエンドエンジニアとしてPHPLaravelを用いた企業マッチングサイトの開発に参加しております。
+                <?php echo SCF::get('career'); ?>
               </p>
             </div>
           </div>
 
           <div class="p-about-me-txt__wrap">
             <span class="p-about-me-txt__strong">スキル</span>
+            <?php $skills = SCF::get('skill'); ?>
             <ul class="p-about-me-career">
-              <li class="p-about-me-career__list"> HTML/css/Sass（実務経験 2年以上）</li>
-              <li class="p-about-me-career__list"> PHP Laravelを使ったwebアプリ制作 </li>
-              <li class="p-about-me-career__list"> Gitを使った共同開発（実務経験 2年以上）</li>
-              <li class="p-about-me-career__list"> Wordpressオリジナルテーマ制作（実務経験 2年以上）</li>
-              <li class="p-about-me-career__list"> Gulpを使ったサイト制作（実務経験 2年以上）</li>
-              <li class="p-about-me-career__list"> PHP（実務経験 2年以上）</li>
-              <li class="p-about-me-career__list"> javascript（実務経験 2年以上）</li>
+              <?php foreach ($skills as $skill) : ?>
+                <li class="p-about-me-career__list"> <?php  echo esc_html( $skill ); ?></li>
+                <?php endforeach; ?>
             </ul>
           </div>
         </div>
+        <?php endwhile; ?>
+        <?php else : ?>
+          <p>投稿がありません</p>
+        <?php endif;
+        wp_reset_postdata(); 
+        ?>
       </div>
     </div>
   </section>
@@ -51,10 +65,10 @@
       <div class="p-works-contents">
         <?php
         $args = array(
-          'post_type' => 'works', // カスタム投稿タイプのスラッグ
-          'posts_per_page' => -1 // 全ての投稿を取得
+          'post_type' => 'works', 
+          'posts_per_page' => -1 
         );
-        $works_query = new WP_Query($args); // この行を追加
+        $works_query = new WP_Query($args); 
 
         if ($works_query->have_posts()) :
           while ($works_query->have_posts()) : $works_query->the_post();
@@ -91,7 +105,7 @@
           <p>投稿がありません</p>
         <?php
         endif;
-        wp_reset_postdata(); // クエリのリセット
+        wp_reset_postdata(); 
         ?>
 
       </div>
