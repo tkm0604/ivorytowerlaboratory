@@ -23,8 +23,9 @@
         if ($about_me_query->have_posts()) :
           while ($about_me_query->have_posts()) : $about_me_query->the_post();
         ?>
-
-        <img class="p-about-me-contents__img" src="/assets/img/common/face.png" alt="ivorytower_lab">
+         <?php if(has_post_thumbnail()): ?>
+        <img class="p-about-me-contents__img" src="<?php the_post_thumbnail(); ?>
+        <?php endif ?>
         <div class="p-about-me-txt">
 
           <div class="p-about-me-txt__wrap">
