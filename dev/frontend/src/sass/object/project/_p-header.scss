@@ -46,3 +46,9 @@ margin: 0 auto;
        opacity: 0.8;
     }
 }
+
+
+// ハンバーガーメニュー開時にbodyにno-scrollクラスを付与
+.no-scroll {
+    overflow: hidden;
+}

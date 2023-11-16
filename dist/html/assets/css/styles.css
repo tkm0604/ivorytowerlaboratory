@@ -199,6 +199,10 @@ img {
   opacity: 0.8;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 .nav_toggle {
   display: none;
   position: relative;
