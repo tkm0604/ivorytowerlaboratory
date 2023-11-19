@@ -23,7 +23,7 @@
 <link href=”https://use.fontawesome.com/releases/v6.0.0/css/all.css” rel=”stylesheet”>
 <script defer src="/assets/js/bundle.js"></script>
 <script src="https://kit.fontawesome.com/c143f5855b.js" crossorigin="anonymous"></script>
-
+<?php wp_head(); ?>
 </head>
 
 <body>

@@ -10,12 +10,14 @@
         position: relative;
         width: 286px;
         height: 62px;
-        margin: 0 0 60px;
         background-color: #005aa4;
         color: #fff;
         cursor: pointer;
         transition: 0.8s all;
         border: none;
+        margin-bottom: 60px;
+        margin-left: 12px;
+        margin-right: 12px;
     }
 
     &__button:hover {
@@ -24,3 +26,4 @@
         color: #005aa4;
     }
 }
+

@@ -75,7 +75,7 @@
           while ($works_query->have_posts()) : $works_query->the_post();
         ?>
             <article class="p-works-item">
-              <a class="p-works_item__link" href="<?php echo SCF::get('url')?>">
+              <a class="p-works_item__link" href="<?php echo SCF::get('url')?>" target="_blank" rel="noopener noreferrer">
               <h3 class="p-works-item-txt__title"><?php the_title(); ?></h3>
                 <?php if(has_post_thumbnail()): ?>
                 <img class="p-works_item__link_img" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>">
@@ -91,7 +91,8 @@
                                 <li class="p-works-item-txt__list_item"><?php echo esc_html( $technology ); ?></li>
                             <?php endforeach; ?>
                         </ul>
-
+                        <p class="p-works-item-txt__heading">[Git]</p>
+                      <p><a href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
                       <p class="p-works-item-txt__heading">[コメント]</p>
                       <p><?php echo SCF::get('comment'); ?></p>
 
@@ -195,19 +196,23 @@
             </tbody>
           </table>
 
-          <div class="c-submit">
+          <!-- <div class="c-submit">
             <input type="submit" name="submitConfirm" value="確認画面へ" class="c-submit__button">
-          </div>
+          </div> -->
+          <div class="c-submit">
 
-          <p>
-            <input type="hidden" name="recaptcha-v3" value="03AFcWeA5T4xeaVAKaj-XLi5bvdjIuisr4OfiWZqw5Ln-KlshIWv7OO462IRJ6C_KyEYOMRfaENG5UQg1eO9t-sLOshD1Nrxb1Rl8szG8OdXVnnVUc1a0q1VrochfSET8dMfgRLlEioOc30paGy3SFJHg50FgBMdCPqfGT-J0gCpsJsLdyqQtlag0XxEmHEpiejcZaaPgn_PgFJNb-h0xEOnM3MovWvjhnAXBK38QuxPQwOR_t9bXNvVicaoaExoLybMR3vZoc8wTLwShxsZo_sGPTjWN86olUoaiGIZGGdyfVq9hk2uNTp8BJncw5SyXJVGznbrQaYyQlPjW0eTxHE5sZ6eb08_R0Q9Eguhi3tfa5DFWmqLupCbRgmWaydMcdRKd0fFCteb4AvwltLDchu5E-aHhLajD2RKnnkEjOFRhBmxat3W2zQPZFVfX17bvgBEReqlUXtTS1G5DJXqkG_rB2cU7s1ZZZg5f2jPuKGvmn9Dr_U0T-Uj4EQzTL2Wf2-i5Y51i8TD_ta4b0HV94592chK8XTrJK-69GqJ0N8uKuU94fDy19g6U">
-            <br>
-          </p>
+<button type="submit" name="submitBack" value="back" class="c-submit__button">戻る</button>
+<br>
 
-          <input type="hidden" id="mw_wp_form_token" name="mw_wp_form_token" value="a39beba857"><input type="hidden" name="_wp_http_referer" value="/"><input type="hidden" name="mw-wp-form-form-id" value="459"><input type="hidden" name="mw-wp-form-form-verify-token" value="839291575a8ca507358b8a6aae3815347bdcfb83">
+<input type="submit" name="mwform_submitButton-36" value="送信する" class="c-submit__button">
+
+</div>
+
 
         </form>
         <!-- end .mw_wp_form -->
+
+
       </div>
     </div>
   </section>

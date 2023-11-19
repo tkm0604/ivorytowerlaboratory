@@ -144,12 +144,14 @@ img {
   position: relative;
   width: 286px;
   height: 62px;
-  margin: 0 0 60px;
   background-color: #005aa4;
   color: #fff;
   cursor: pointer;
   transition: 0.8s all;
   border: none;
+  margin-bottom: 60px;
+  margin-left: 12px;
+  margin-right: 12px;
 }
 .c-submit__button:hover {
   border: 1px solid #005aa4;
@@ -577,16 +579,28 @@ img {
   width: 100%;
 }
 
-.p-input-tell {
-  display: flex;
-  width: 100%;
-}
 .p-input-tell__number {
   width: 20%;
   margin: 0 10px;
 }
 .p-input-tell__number:first-of-type {
   margin-left: 0;
+}
+.p-input-tell .mwform-tel-field input[type=text] {
+  width: 20% !important;
+  margin: 0 10px;
+}
+
+.mwform-tel-field input[type=text]:first-of-type {
+  margin-left: 0;
+}
+
+.mwform-tel-field input[type=text]:last-of-type {
+  margin-right: 0;
+}
+
+.mw_wp_form .mw_wp_form_complete {
+  text-align: center;
 }
 
 .u-show-only.-pc {
