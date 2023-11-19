@@ -32,7 +32,7 @@
     <div class="p-header-inner">
         <h1 class="p-header-inner__title">
             <a class="p-header-inner__link" href="https://ivorytowerlab.jp/">
-                <img class="p-header-inner__logo" src="/assets/img/common/ivory_tower_lab_logo.png">
+                <img class="p-header-inner__logo" src="/assets/img/common/ivory_tower_lab_logo.png" alt="ivorytowerlab">
             </a>
         </h1>
 
