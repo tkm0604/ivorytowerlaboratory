@@ -463,6 +463,9 @@ img {
 .p-works-item-txt__list_item:last-of-type {
   margin-right: 0;
 }
+.p-works-item-txt__link {
+  overflow-wrap: break-word;
+}
 
 .p-contact {
   background-color: #f2ede4;
@@ -599,7 +602,7 @@ img {
   margin-right: 0;
 }
 
-.mw_wp_form .mw_wp_form_complete {
+.mw_wp_form .mw_wp_form_input {
   text-align: center;
 }
 

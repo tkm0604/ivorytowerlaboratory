@@ -51,7 +51,7 @@
                 <?php $skills = SCF::get('skill'); ?>
                 <ul class="p-about-me-career">
                   <?php foreach ($skills as $skill) : ?>
-                    <li class="p-about-me-career__list"> <?php echo esc_html($skill); ?></li>
+                    <li class="p-about-me-career__list">・<?php echo esc_html($skill); ?></li>
                   <?php endforeach; ?>
                 </ul>
               </div>
@@ -99,7 +99,7 @@
                 </ul>
                 <?php if (SCF::get('git') !== "") : ?>
                   <p class="p-works-item-txt__heading">[Git]</p>
-                  <p><a href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
+                  <p><a class="p-works-item-txt__link" href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
                 <?php endif; ?>
                 <p class="p-works-item-txt__heading">[コメント]</p>
                 <p><?php echo SCF::get('comment'); ?></p>

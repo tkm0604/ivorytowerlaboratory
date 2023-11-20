@@ -70,4 +70,8 @@
     &__list_item:last-of-type{
         margin-right: 0;
     }
+    &__link{
+        overflow-wrap: break-word;
+    }
 }
+
