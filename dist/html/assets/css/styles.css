@@ -278,8 +278,7 @@ img {
 .p-footer-logo {
   max-width: 319px;
   width: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px;
 }
 
 .p-footer-bottom {
