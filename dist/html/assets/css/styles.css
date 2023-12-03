@@ -522,13 +522,18 @@ img {
   border-bottom: 1px solid #e8e4de;
   background: #e5dccc;
   color: #e8e4de;
+  position: relative;
 }
 .p-input-item__inner {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
   display: flex;
   font-size: 1.4rem;
-  padding: 46px 30px;
+  padding-left: 2%;
   text-align: left;
-  vertical-align: top;
 }
 @media screen and (max-width: 1280px) {
   .p-input-item__inner {
@@ -540,6 +545,15 @@ img {
     display: flex;
     align-items: center;
     padding: 2vw;
+  }
+}
+@media screen and (max-width: 803px) {
+  .p-input-item__inner {
+    position: static;
+    top: auto;
+    left: auto;
+    -webkit-transform: none;
+            transform: none;
   }
 }
 .p-input-item__inner-title {

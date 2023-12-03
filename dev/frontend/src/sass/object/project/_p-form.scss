@@ -16,12 +16,16 @@
     border-bottom: 1px solid #e8e4de;
     background: #e5dccc;
     color: #e8e4de;
+    position: relative;
     &__inner {
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        transform: translateY(-50%);
         display: flex;
         font-size: 1.4rem;
-        padding: 46px 30px;
+        padding-left: 2%;
         text-align: left;
-        vertical-align: top;
         @media screen and (max-width:g.$device-l){
             display: block;
         }
@@ -29,6 +33,12 @@
             display: flex;
             align-items: center;
             padding: 2vw;
+        }
+        @media screen and (max-width:g.$device-m){
+            position: static;
+            top: auto;
+            left: auto;
+            transform:none;
         }
     }
     
