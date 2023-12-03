@@ -594,6 +594,9 @@ img {
 .p-input-info__textarea {
   width: 100%;
 }
+.p-input-info__error {
+  color: red;
+}
 
 .p-input-tell__number {
   width: 20%;

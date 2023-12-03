@@ -7,14 +7,36 @@ if (!isset($_SESSION['formStatus'])) {
   $_SESSION['formStatus'] = 'input'; // デフォルトの状態
 }
 
+include_once 'form/form-validation.php'; // バリデーションファイルの読み込み
+
 // フォームデータをセッションに保存
-function saveFormData() {
-    if (!empty($_POST)) {
-        foreach ($_POST as $key => $value) {
-            $_SESSION['formData'][$key] = $value;
-        }
+function saveFormData()
+{
+  if (!empty($_POST)) {
+    foreach ($_POST as $key => $value) {
+      $_SESSION['formData'][$key] = $value;
     }
+  }
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $errors = validateFormData($_POST); // フォームデータのバリデーション
+  saveFormData(); // フォームデータを保存
+
+  // バリデーションエラーがある場合、フォームステータスを 'input' に設定
+  if (!empty($errors)) {
+    $_SESSION['formStatus'] = 'input';
+  } else {
+    // バリデーションエラーがない場合、次のフォームステータスに進む
+    if (isset($_POST["submitConfirm"])) {
+      $_SESSION['formStatus'] = 'confirm';
+    }
+    // elseif (isset($_POST["submitFinal"])) {
+    //   $_SESSION['formStatus'] = 'complete';
+    // }
+  }
+}
+
 
 // POSTリクエストがない場合は、フォーム状態をリセット
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -25,20 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
   }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  saveFormData(); // フォームデータを保存
-  if (isset($_POST["submitConfirm"])) {
-    $_SESSION['formStatus'] = 'confirm';
-  } elseif (isset($_POST["submitBack"])) {
-    $_SESSION['formStatus'] = 'input';
-  } elseif (isset($_POST["submitFinal"])) {
-    $_SESSION['formStatus'] = 'complete';
-  }
-}
+
 
 // フォームデータを取得するためのヘルパー関数
-function getSavedValue($key) {
-    return isset($_SESSION['formData'][$key]) ? $_SESSION['formData'][$key] : '';
+function getSavedValue($key)
+{
+  return isset($_SESSION['formData'][$key]) ? $_SESSION['formData'][$key] : '';
 }
 
 $companyName = isset($_POST['company-name']) ? $_POST['company-name'] : '';
@@ -50,10 +64,51 @@ $tel2 = isset($_POST['tel-2']) ? $_POST['tel-2'] : '';
 $tel3 = isset($_POST['tel-3']) ? $_POST['tel-3'] : '';
 $msg = isset($_POST['msg']) ? $_POST['msg'] : '';
 
-var_dump($_SESSION);
-print '<br><br>';
-var_dump($_POST);
+
+// お客様向けフォームの送信処理
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['formStatus'] == 'confirm') {
+  if (isset($_POST["submitFinal"])) {
+
+    // フォームデータをメールで送信
+    $to = $_SESSION['formData']['email']; // 送信先のメールアドレス
+    $subject = 'ivorytowerへお問い合わせありがとうございます。';
+    $message = "会社名: " . $_SESSION['formData']['company-name'] . "\n"
+      . "担当者名: " . $_SESSION['formData']['pic'] . "\n"
+      . "担当者名カナ: " . $_SESSION['formData']['pic-kana'] . "\n"
+      . "メールアドレス: " . $_SESSION['formData']['email'] . "\n"
+      . "電話番号: " . $_SESSION['formData']['tel-1'] . "-" . $_SESSION['formData']['tel-2'] . "-" . $_SESSION['formData']['tel-3'] . "\n"
+      . "メッセージ: " . $_SESSION['formData']['msg'];
+    $headers = 'From: info@ivorytowerlab.jp'; // 送信元のメールアドレス
+
+    $sent = wp_mail($to, $subject, $message, $headers);
+
+        // フォームデータをメールで送信
+        $to = ' info@ivorytowerlab.jp'; // 送信先のメールアドレス
+        $subject = 'ivorytowerへお問い合わせが届いています。';
+        $message = "会社名: " . $_SESSION['formData']['company-name'] . "\n"
+          . "担当者名: " . $_SESSION['formData']['pic'] . "\n"
+          . "担当者名カナ: " . $_SESSION['formData']['pic-kana'] . "\n"
+          . "メールアドレス: " . $_SESSION['formData']['email'] . "\n"
+          . "電話番号: " . $_SESSION['formData']['tel-1'] . "-" . $_SESSION['formData']['tel-2'] . "-" . $_SESSION['formData']['tel-3'] . "\n"
+          . "メッセージ: " . $_SESSION['formData']['msg'];
+        $headers = 'From:'.$_SESSION['formData']['email']; // 送信元のメールアドレス
+    
+        $sent = wp_mail($to, $subject, $message, $headers);
+
+    if ($sent) {
+      // メール送信が成功した場合の処理
+      $_SESSION['formStatus'] = 'complete';
+      // セッションデータをクリア
+      unset($_SESSION['formData']);
+      // 完了ページにリダイレクトする場合
+    } else {
+      echo '送信に失敗しました。';
+    }
+  }
+}
+
 ?>
+
 <?php get_header(); ?>
 
 <main class="l-main">
@@ -199,6 +254,7 @@ var_dump($_POST);
           <form class="p-form" method="post" action="" enctype="multipart/form-data">
             <table class="p-contact-body">
               <tbody>
+
                 <tr class="p-input-item">
                   <th class="p-input-item__inner">
                     <p class="p-input-item__inner-title">会社名</p>
@@ -206,8 +262,12 @@ var_dump($_POST);
                   </th>
                   <td class="p-input-info">
                     <input type="text" name="company-name" class="p-input-info__txt" size="60" value="<?php echo htmlspecialchars(getSavedValue('company-name')); ?>" placeholder="例）株式会社ABC">
+                    <?php if (isset($errors['company-name'])) : ?>
+                      <p class="p-input-info__error"><?php echo $errors['company-name']; ?></p>
+                    <?php endif; ?>
                   </td>
                 </tr>
+
                 <tr class="p-input-item">
                   <th class="p-input-item__inner">
                     <p class="p-input-item__inner-title">担当者名</p>
@@ -215,8 +275,12 @@ var_dump($_POST);
                   </th>
                   <td class="p-input-info">
                     <input type="text" name="pic" class="p-input-info__txt" size="60" value="<?php echo htmlspecialchars(getSavedValue('pic')); ?>" placeholder="例）山田太郎">
+                    <?php if (isset($errors['pic'])) : ?>
+                      <p class="p-input-info__error"><?php echo $errors['pic']; ?></p>
+                    <?php endif; ?>
                   </td>
                 </tr>
+
                 <tr class="p-input-item">
                   <th class="p-input-item__inner">
                     <p class="p-input-item__inner-title">担当者名(フリガナ)</p>
@@ -224,18 +288,25 @@ var_dump($_POST);
                   </th>
                   <td class="p-input-info">
                     <input type="text" name="pic-kana" class="p-input-info__txt" size="60" value="<?php echo htmlspecialchars(getSavedValue('pic-kana')); ?>" placeholder="例）ヤマダタロウ">
+                    <?php if (isset($errors['pic-kana'])) : ?>
+                      <p class="p-input-info__error"><?php echo $errors['pic-kana']; ?></p>
+                    <?php endif; ?>
                   </td>
                 </tr>
+
                 <tr class="p-input-item">
                   <th class="p-input-item__inner">
                     <p class="p-input-item__inner-title">メールアドレス</p>
                     <p><span class="p-input-item__inner-req">必須</span></p>
                   </th>
                   <td class="p-input-info">
-
                     <input type="email" name="email" class="p-input-info__txt" size="60" value="<?php echo htmlspecialchars(getSavedValue('email')); ?>" placeholder="例）mail@example.com">
+                    <?php if (isset($errors['email'])) : ?>
+                      <p class="p-input-info__error"><?php echo $errors['email']; ?></p>
+                    <?php endif ?>
                   </td>
                 </tr>
+
                 <tr class="p-input-item">
                   <th class="p-input-item__inner">
                     <p class="p-input-item__inner-title">電話番号</p>
@@ -246,19 +317,25 @@ var_dump($_POST);
                       - <input type="text" name="tel-2" class="p-input-tell__number" size="5" maxlength="4" value="<?php echo htmlspecialchars(getSavedValue('tel-2')); ?>">
                       - <input type="text" name="tel-3" class="p-input-tell__number" size="5" maxlength="4" value="<?php echo htmlspecialchars(getSavedValue('tel-3')); ?>">
                     </div>
-
-                    <input type="hidden" name="tell[separator]" value="-">
+                    <?php if (isset($errors['tel'])) : ?>
+                      <p class="p-input-info__error"><?php echo $errors['tel']; ?></p>
+                    <?php endif; ?>
                   </td>
                 </tr>
+
                 <tr class="p-input-item">
                   <th class="p-input-item__inner">
                     <p class="p-input-item__inner-title">お問い合わせ内容</p>
                     <p><span class="p-input-item__inner-req">必須</span></p>
                   </th>
                   <td class="p-input-info">
-                  <textarea name="msg" class="p-input-info__textarea" cols="30" rows="5"><?php echo htmlspecialchars(getSavedValue('msg')); ?></textarea>
+                    <textarea name="msg" class="p-input-info__textarea" cols="30" rows="5"><?php echo htmlspecialchars(getSavedValue('msg')); ?></textarea>
+                    <?php if (isset($errors['msg'])) : ?>
+                      <p class="p-input-info__error"><?php echo $errors['msg']; ?></p>
+                    <?php endif ?>
                   </td>
                 </tr>
+
               </tbody>
             </table>
 
@@ -278,7 +355,7 @@ var_dump($_POST);
                     <p><span class="p-input-item__inner-req">必須</span></p>
                   </th>
                   <td class="p-input-info">
-                  <p class="p-input-info__txt"><?php echo $companyName ?></p>
+                    <p class="p-input-info__txt"><?php echo $companyName; ?></p>
                     <input type="hidden" name="company-name" class="p-input-info__txt" size="60" value="<?php echo htmlspecialchars(getSavedValue('company-name')); ?>" placeholder="例）株式会社ABC">
                   </td>
                 </tr>
@@ -288,7 +365,7 @@ var_dump($_POST);
                     <p><span class="p-input-item__inner-req">必須</span></p>
                   </th>
                   <td class="p-input-info">
-                  <p class="p-input-info__txt"><?php echo $pic; ?></p>
+                    <p class="p-input-info__txt"><?php echo $pic; ?></p>
                     <input type="hidden" name="pic" class="p-input-info__txt" size="60" value="<?php echo htmlspecialchars(getSavedValue('pic')); ?>" placeholder="例）山田太郎">
                   </td>
                 </tr>
@@ -298,7 +375,7 @@ var_dump($_POST);
                     <p><span class="p-input-item__inner-req">必須</span></p>
                   </th>
                   <td class="p-input-info">
-                  <p class="p-input-info__txt"><?php echo $picKana; ?></p>
+                    <p class="p-input-info__txt"><?php echo $picKana; ?></p>
                     <input type="hidden" name="pic-kana" class="p-input-info__txt" size="60" value="<?php echo htmlspecialchars(getSavedValue('pic-kana')); ?>" placeholder="例）ヤマダタロウ">
                   </td>
                 </tr>
@@ -308,7 +385,7 @@ var_dump($_POST);
                     <p><span class="p-input-item__inner-req">必須</span></p>
                   </th>
                   <td class="p-input-info">
-                  <p class="p-input-info__txt"><?php echo $email; ?></p>
+                    <p class="p-input-info__txt"><?php echo $email; ?></p>
                     <input type="hidden" name="email" class="p-input-info__txt" size="60" value="<?php echo htmlspecialchars(getSavedValue('email')); ?>" placeholder="例）mail@example.com">
                   </td>
                 </tr>
@@ -318,16 +395,15 @@ var_dump($_POST);
                   </th>
                   <td class="p-input-info">
                     <div class="mwform-tel-field p-input-tell">
-                    <span class="p-input-info__txt"><?php echo $tel1; ?>- </span>
-                    <span class="p-input-info__txt"><?php echo $tel2; ?>- </span>
-                    <span class="p-input-info__txt"><?php echo $tel3; ?></span>
+                      <span class="p-input-info__txt"><?php echo $tel1; ?>- </span>
+                      <span class="p-input-info__txt"><?php echo $tel2; ?>- </span>
+                      <span class="p-input-info__txt"><?php echo $tel3; ?></span>
 
                       <input type="hidden" name="tel-1" class="p-input-tell__number" size="6" maxlength="5" value="<?php echo htmlspecialchars(getSavedValue('tel-1')); ?>">
-                       <input type="hidden" name="tel-2" class="p-input-tell__number" size="5" maxlength="4" value="<?php echo htmlspecialchars(getSavedValue('tel-2')); ?>">
-                       <input type="hidden" name="tel-3" class="p-input-tell__number" size="5" maxlength="4" value="<?php echo htmlspecialchars(getSavedValue('tel-3')); ?>">
-                    </div>
+                      <input type="hidden" name="tel-2" class="p-input-tell__number" size="5" maxlength="4" value="<?php echo htmlspecialchars(getSavedValue('tel-2')); ?>">
+                      <input type="hidden" name="tel-3" class="p-input-tell__number" size="5" maxlength="4" value="<?php echo htmlspecialchars(getSavedValue('tel-3')); ?>">
 
-                    <!-- <input type="hidden" name="tell[separator]" value="-"> -->
+                    </div>
                   </td>
                 </tr>
                 <tr class="p-input-item">
@@ -337,27 +413,26 @@ var_dump($_POST);
                   </th>
                   <td class="p-input-info">
                     <p><?php echo $msg; ?></p>
-                    <input type="hidden" value="$msg" name="msg">
-                    <!-- <textarea name="msg" class="p-input-info__textarea" cols="30" rows="5" value="<?php echo htmlspecialchars(getSavedValue('')); ?>"></textarea> -->
+                    <input type="hidden" value="<?php echo htmlspecialchars(getSavedValue('msg')); ?>" name="msg">
                   </td>
                 </tr>
               </tbody>
             </table>
 
-          </form>
-
-          <div class="c-submit">
-            <form action="" method="post">
+            <div class="c-submit">
               <button type="submit" name="submitBack" value="back" class="c-submit__button">戻る</button>
               <br>
+              <input type="submit" name="submitFinal" value="送信する" class="c-submit__button">
+            </div>
 
-              <input type="submit" name="submitFinal" value="送信する" class="c-submit__button" onclick="navigateToContact();">
-            </form>
-          </div>
+          </form>
+
+
 
         <?php elseif ($_SESSION['formStatus'] == 'complete') : ?>
           <!-- 送信完了メッセージのHTML -->
           <p>フォームが送信されました。</p>
+          <a href="/">TOPへ戻る</a>
 
         <?php endif; ?>
 
@@ -372,8 +447,8 @@ var_dump($_POST);
 <?php get_footer(); ?>
 
 <script>
-function navigateToContact() {
+  function navigateToContact() {
     // `contact`セクションにスクロールする
     document.getElementById('contact').scrollIntoView();
-}
+  }
 </script>

@@ -43,3 +43,9 @@ services:
       - db
     ports:
       - 8888:80
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Webインターフェース    
