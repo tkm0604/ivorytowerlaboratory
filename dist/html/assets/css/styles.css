@@ -605,21 +605,21 @@ img {
 .p-input-tell__number:first-of-type {
   margin-left: 0;
 }
-.p-input-tell .mwform-tel-field input[type=text] {
-  width: 20% !important;
-  margin: 0 10px;
-}
 
-.mwform-tel-field input[type=text]:first-of-type {
-  margin-left: 0;
-}
-
-.mwform-tel-field input[type=text]:last-of-type {
-  margin-right: 0;
-}
-
-.mw_wp_form .mw_wp_form_input {
+.formStatus_complete {
   text-align: center;
+}
+.formStatus_complete__headding {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+.formStatus_complete___txt {
+  margin-bottom: 12px;
+}
+.formStatus_complete__link {
+  color: #005aa4;
+  font-weight: bold;
 }
 
 .u-show-only.-pc {

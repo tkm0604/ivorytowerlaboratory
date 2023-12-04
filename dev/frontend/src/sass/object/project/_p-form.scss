@@ -26,26 +26,26 @@
         font-size: 1.4rem;
         padding-left: 2%;
         text-align: left;
-        @media screen and (max-width:g.$device-l){
+        @media screen and (max-width: g.$device-l) {
             display: block;
         }
-        @media screen and (max-width:g.$device-l) and (max-width:g.$device-m){
+        @media screen and (max-width: g.$device-l) and (max-width: g.$device-m) {
             display: flex;
             align-items: center;
             padding: 2vw;
         }
-        @media screen and (max-width:g.$device-m){
+        @media screen and (max-width: g.$device-m) {
             position: static;
             top: auto;
             left: auto;
-            transform:none;
+            transform: none;
         }
     }
-    
+
     &__inner-title {
         margin-right: 12px;
         color: #3b4043;
-        @media screen and (max-width:g.$device-l) and (max-width:g.$device-m){
+        @media screen and (max-width: g.$device-l) and (max-width: g.$device-m) {
             margin-right: 12px;
             margin-bottom: 0;
         }
@@ -64,51 +64,49 @@
     background: #fff;
     color: #3b4043;
     text-align: left;
-@media screen and (max-width:g.$device-m) {
-    display: block;
-    width: 100%;
-    padding: 2vw;
-}
+    @media screen and (max-width: g.$device-m) {
+        display: block;
+        width: 100%;
+        padding: 2vw;
+    }
     &__txt {
         width: 100%;
         padding: 0.25em 0.5em;
         font-size: 15px;
     }
 
-    &__textarea{
+    &__textarea {
         width: 100%;
     }
 
-    &__error{
+    &__error {
         color: red;
     }
 }
 
-.p-input-tell{
-    // display: flex;
-    // width: 100%;
-    &__number{
+.p-input-tell {
+    &__number {
         width: 20%;
-        margin: 0 10px;  
+        margin: 0 10px;
     }
-    &__number:first-of-type{
+    &__number:first-of-type {
         margin-left: 0;
     }
-    .mwform-tel-field input[type="text"]{
-        width: 20% !important;
-        margin: 0 10px;  
-    }
 }
 
-
-.mwform-tel-field input[type="text"]:first-of-type{
-    margin-left: 0;
-}
-
-.mwform-tel-field input[type="text"]:last-of-type{
-    margin-right: 0;
-}
-
-.mw_wp_form .mw_wp_form_input{
+.formStatus_complete {
     text-align: center;
+    &__headding {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+
+    &___txt {
+        margin-bottom: 12px;
+    }
+    &__link {
+        color: #005aa4;
+        font-weight: bold;
+    }
 }
