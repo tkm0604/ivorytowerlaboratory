@@ -48,6 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 }
+
 $recaptcha_response = $_POST['recaptcha_response'];
 $recaptcha_secret = '6LctMSUpAAAAAGMYKrabpEnNVxFkkf2fvPHe9yMI';
 
@@ -60,7 +61,7 @@ $recaptcha = json_decode(file_get_contents($recaptch_url . '?' . http_build_quer
 
 if ($recaptcha->score >= 0.5) {
     // ここに成功時の処理を書く
-    $_SESSION['formStatus'] = 'confirm';
+    // $_SESSION['formStatus'] = 'confirm';
 } else {
     // ここに失敗時の処理を書く　基本的には何もしなくて良い
 }
@@ -111,6 +112,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['formStatus'] == 'confirm'
       . "電話番号: " . $_SESSION['formData']['tel-1'] . "-" . $_SESSION['formData']['tel-2'] . "-" . $_SESSION['formData']['tel-3'] . "\n"
       . "メッセージ: " . $_SESSION['formData']['msg'];
     $headersAdmin = 'From: ' . $_SESSION['formData']['email']; // 送信元のメールアドレス
+    // BCCアドレスの追加
+$headersAdmin .= "\r\nBcc: gu.jp0604@gmail.com";
 
     $sentToAdmin = wp_mail($toAdmin, $subjectAdmin, $messageAdmin, $headersAdmin);
 
