@@ -205,6 +205,19 @@ img {
   overflow: hidden;
 }
 
+.p-header-fix {
+  position: fixed;
+  background-color: #fff;
+  opacity: 0.7;
+  width: 100%;
+  z-index: 100;
+}
+@media screen and (max-width: 631px) {
+  .p-header-fix {
+    top: 0;
+  }
+}
+
 .nav_toggle {
   display: none;
   position: relative;
@@ -389,6 +402,8 @@ img {
 
 .p-works {
   background-color: #f2ede4;
+  padding-top: 100px;
+  margin-top: 100px;
 }
 .p-works__inner {
   max-width: 1280px;
@@ -468,6 +483,8 @@ img {
 
 .p-contact {
   background-color: #f2ede4;
+  padding-top: 100px;
+  margin-top: 100px;
 }
 .p-contact__inner {
   margin: 0 auto;

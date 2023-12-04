@@ -1,6 +1,7 @@
 //scripts
 import {header} from './layout/header'
 import { pagetop } from './modules/pagetop'
+import { scrollHeader } from './modules/scrollHeader'
 import { common } from './modules/common'
 import { hamburger } from './modules/hamburger'
 import {linkNoOpener} from './modules/linkNoOpener'
