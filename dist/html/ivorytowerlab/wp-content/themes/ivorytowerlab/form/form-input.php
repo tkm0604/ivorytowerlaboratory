@@ -89,4 +89,15 @@
     <div class="c-submit">
         <input type="submit" name="submitConfirm" value="確認画面へ" class="c-submit__button" onclick="navigateToContact();">
     </div>
+    <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
 </form>
+
+<script src="https://www.google.com/recaptcha/api.js?render=6LctMSUpAAAAAN28mFY3Z9hiCXUfuFUUVe_AhlrW"></script>
+<script>
+grecaptcha.ready(function() {
+    grecaptcha.execute('6LctMSUpAAAAAN28mFY3Z9hiCXUfuFUUVe_AhlrW', {action: 'submit'}).then(function(token) {
+        var recaptchaResponse = document.getElementById('recaptchaResponse');
+        recaptchaResponse.value = token;
+    });
+});
+</script>

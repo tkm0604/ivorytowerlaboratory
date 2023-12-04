@@ -48,6 +48,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 }
+$recaptcha_response = $_POST['recaptcha_response'];
+$recaptcha_secret = '6LctMSUpAAAAAGMYKrabpEnNVxFkkf2fvPHe9yMI';
+
+$recaptch_url = 'https://www.google.com/recaptcha/api/siteverify';
+$recaptcha_params = [
+    'secret' => $recaptcha_secret,
+    'response' => $recaptcha_response,
+];
+$recaptcha = json_decode(file_get_contents($recaptch_url . '?' . http_build_query($recaptcha_params)));
+
+if ($recaptcha->score >= 0.5) {
+    // ここに成功時の処理を書く
+    $_SESSION['formStatus'] = 'confirm';
+} else {
+    // ここに失敗時の処理を書く　基本的には何もしなくて良い
+}
+
 
 
 // フォームデータを取得するためのヘルパー関数
@@ -286,8 +303,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['formStatus'] == 'confirm'
 <?php get_footer(); ?>
 
 <script>
-  function navigateToContact() {
-    // `contact`セクションにスクロールする
-    document.getElementById('contact').scrollIntoView();
-  }
-</script>
+
