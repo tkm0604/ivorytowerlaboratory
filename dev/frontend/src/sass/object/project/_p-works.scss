@@ -2,42 +2,44 @@
 @use "../../global" as g;
 @use "sass:math";
 
-.p-works{
-    background-color: g.$bodyColor;
+.p-works {
     padding-top: 100px;
-    margin-top: 100px;
-    margin-bottom: -100px;
-    &__inner{
+    margin-top: -100px;
+    &__inner {
         max-width: g.$device-l;
         margin: 0 auto;
-        padding: 0 50px 100px;
-        @media screen and (max-width:g.$device-m) {
-            padding: 0 20px 100px;
+        padding: 100px 50px;
+        @media screen and (max-width: g.$device-m) {
+            padding: 100px 20px 100px;
         }
     }
 }
 
-.p-works-contents{
+.p-works_bg {
+    background-color: g.$bodyColor;
+}
+
+.p-works-contents {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    @media screen and (max-width:g.$device-m) {
+    @media screen and (max-width: g.$device-m) {
         display: block;
     }
 }
 
-.p-works-item{
+.p-works-item {
     width: calc(50% - 15px);
     margin-right: 15px;
     margin-top: 15px;
 
-    @media screen and (max-width:g.$device-m) {
-       width: 100%;
-       margin-right: 0;
+    @media screen and (max-width: g.$device-m) {
+        width: 100%;
+        margin-right: 0;
     }
 }
 
-.p-works-item:nth-of-type(-n+2){
+.p-works-item:nth-of-type(-n + 2) {
     margin-top: 0;
     @media screen and (max-width: g.$device-m) {
         margin-top: 15px;
@@ -45,7 +47,7 @@
 }
 
 .p-works-item:first-of-type {
-    @media screen and (max-width:g.$device-m) {
+    @media screen and (max-width: g.$device-m) {
         margin-top: 0;
     }
 }
@@ -54,26 +56,25 @@
     margin-right: 0;
 }
 
-.p-works_item__link_img{
+.p-works_item__link_img {
     border: 1px solid #333;
     margin-bottom: 16px;
-    @media screen and (max-width:g.$device-m) {
+    @media screen and (max-width: g.$device-m) {
         margin-bottom: 12px;
     }
 }
 
-.p-works-item-txt{
-    &__list{
+.p-works-item-txt {
+    &__list {
         display: flex;
     }
-    &__list_item{
+    &__list_item {
         margin-right: 5px;
     }
-    &__list_item:last-of-type{
+    &__list_item:last-of-type {
         margin-right: 0;
     }
-    &__link{
+    &__link {
         overflow-wrap: break-word;
     }
 }
-

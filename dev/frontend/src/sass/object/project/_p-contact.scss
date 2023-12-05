@@ -3,16 +3,12 @@
 @use "sass:math";
 
 .p-contact {
-    // background-color: g.$bodyColor;
     padding-top: 100px;
-    margin-top: 100px;
-    margin-bottom: -100px;
+    margin-top: -100px;
     &__inner {
         margin: 0 auto;
-        padding: 0 50px 100px;
-        @media screen and (max-width:g.$device-m) {
-            padding: 0 20px 100px;
-        }
+        padding: 100px 50px;
+
     }
 }
 
