@@ -4,11 +4,13 @@
 
 .p-mv {
     background-color: g.$bodyColor;
+    margin-bottom: -100px;
     &__inner{
     max-width:g.$device-l;
     margin: 0 auto;
     padding: 10% 0;
     text-align: center;
+
     @media screen and (max-width:480px) {
         margin: 0 10vw; 
     }

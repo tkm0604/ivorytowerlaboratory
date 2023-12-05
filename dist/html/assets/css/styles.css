@@ -123,7 +123,6 @@ img {
 }
 
 .l-footer {
-  background-color: #f2ede4;
   text-align: center;
 }
 
@@ -333,6 +332,7 @@ img {
 
 .p-mv {
   background-color: #f2ede4;
+  margin-bottom: -100px;
 }
 .p-mv__inner {
   max-width: 1280px;
@@ -353,15 +353,16 @@ img {
 .p-about-me {
   padding-top: 100px;
   margin-top: 100px;
+  margin-bottom: -100px;
 }
 .p-about-me__inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 45px 50px;
+  padding: 0 50px 100px;
 }
 @media screen and (max-width: 803px) {
   .p-about-me__inner {
-    padding: 20px;
+    padding: 0 20px 100px;
   }
 }
 
@@ -409,15 +410,16 @@ img {
   background-color: #f2ede4;
   padding-top: 100px;
   margin-top: 100px;
+  margin-bottom: -100px;
 }
 .p-works__inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 45px 50px;
+  padding: 0 50px 100px;
 }
 @media screen and (max-width: 803px) {
   .p-works__inner {
-    padding: 20px;
+    padding: 0 20px 100px;
   }
 }
 
@@ -487,17 +489,17 @@ img {
 }
 
 .p-contact {
-  background-color: #f2ede4;
   padding-top: 100px;
   margin-top: 100px;
+  margin-bottom: -100px;
 }
 .p-contact__inner {
   margin: 0 auto;
-  padding: 45px 50px;
+  padding: 0 50px 100px;
 }
 @media screen and (max-width: 803px) {
   .p-contact__inner {
-    padding: 20px;
+    padding: 0 20px 100px;
   }
 }
 
