@@ -55,16 +55,19 @@ margin: 0 auto;
 
 
 
-.p-header-fix{
-    position: fixed;
-    background-color: #fff;
-    opacity: 0.7;
-    width: 100%;
-    z-index: 100;
-    
-    @media screen and (max-width : 631px){
-        top: 0;
-    }
+
+// スクロールヘッダー
+
+#main{
+    transition: 0.3s ease-in-out;
 }
 
-
+#main.show {
+	left: 0;
+	position: fixed;
+	top: 0;
+    width: 100%;
+    background-color: #fff;
+    opacity: 0.8 !important;
+    z-index: 100;
+}

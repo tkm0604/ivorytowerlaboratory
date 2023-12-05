@@ -8,13 +8,13 @@ window.addEventListener("scroll", function ()
   const scrollPosition = this.window.pageYOffset;
   
   // headerElementが特定の位置に達したかチェック
-  if (scrollPosition > 500)
+  if (scrollPosition > 180)
   {
-      headerElement.classList.add("p-header-fix", "fading-in");
+      headerElement.classList.add("show");
   }
-  else if (scrollPosition > 300)
+  else if (scrollPosition >= 50)
   {
-    headerElement.classList.remove("p-header-fix", "fading-in");
+    headerElement.classList.remove("show");
 
   }
 

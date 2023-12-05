@@ -3,6 +3,8 @@
 @use "sass:math";
 
 .p-about-me{
+    padding-top: 100px;
+    margin-top: 100px;
     &__inner{
         max-width: g.$device-l;
         margin: 0 auto;
