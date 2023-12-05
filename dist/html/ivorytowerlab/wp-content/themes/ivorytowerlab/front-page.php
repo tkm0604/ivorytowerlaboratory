@@ -54,16 +54,16 @@ $recaptcha_secret = '6LctMSUpAAAAAGMYKrabpEnNVxFkkf2fvPHe9yMI';
 
 $recaptch_url = 'https://www.google.com/recaptcha/api/siteverify';
 $recaptcha_params = [
-    'secret' => $recaptcha_secret,
-    'response' => $recaptcha_response,
+  'secret' => $recaptcha_secret,
+  'response' => $recaptcha_response,
 ];
 $recaptcha = json_decode(file_get_contents($recaptch_url . '?' . http_build_query($recaptcha_params)));
 
 if ($recaptcha->score >= 0.5) {
-    // ここに成功時の処理を書く
-    // $_SESSION['formStatus'] = 'confirm';
+  // ここに成功時の処理を書く
+  // $_SESSION['formStatus'] = 'confirm';
 } else {
-    // ここに失敗時の処理を書く　基本的には何もしなくて良い
+  // ここに失敗時の処理を書く　基本的には何もしなくて良い
 }
 
 
@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['formStatus'] == 'confirm'
       . "メッセージ: " . $_SESSION['formData']['msg'];
     $headersAdmin = 'From: ' . $_SESSION['formData']['email']; // 送信元のメールアドレス
     // BCCアドレスの追加
-$headersAdmin .= "\r\nBcc: gu.jp0604@gmail.com";
+    $headersAdmin .= "\r\nBcc: gu.jp0604@gmail.com";
 
     $sentToAdmin = wp_mail($toAdmin, $subjectAdmin, $messageAdmin, $headersAdmin);
 
@@ -201,56 +201,59 @@ $headersAdmin .= "\r\nBcc: gu.jp0604@gmail.com";
   </section>
 
   <section id="works" class="p-works">
-    <div class="p-works__inner">
-      <h2 class="c-section-title">Works</h2>
+    <div class="p-works_bg">
+      <div class="p-works__inner">
+        <h2 class="c-section-title">Works</h2>
 
-      <div class="p-works-contents">
-        <?php
-        $args = array(
-          'post_type' => 'works',
-          'posts_per_page' => -1
-        );
-        $works_query = new WP_Query($args);
+        <div class="p-works-contents">
+          <?php
+          $args = array(
+            'post_type' => 'works',
+            'posts_per_page' => -1
+          );
+          $works_query = new WP_Query($args);
 
-        if ($works_query->have_posts()) :
-          while ($works_query->have_posts()) : $works_query->the_post();
-        ?>
-            <article class="p-works-item">
+          if ($works_query->have_posts()) :
+            while ($works_query->have_posts()) : $works_query->the_post();
+          ?>
+              <article class="p-works-item">
 
-              <h3 class="p-works-item-txt__title"><?php the_title(); ?></h3>
-              <?php if (has_post_thumbnail()) : ?>
-                <a class="p-works_item__link" href="<?php echo SCF::get('url') ?>" target="_blank" rel="noopener noreferrer"><img class="p-works_item__link_img" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>"> </a>
-              <?php endif ?>
-              <p class="p-works-item-txt__heading">[制作時期]</p>
-              <p><?php echo SCF::get('year'); ?>年</p>
-              <p class="p-works-item-txt__heading">[使用技術]</p>
-              <?php
-              $technologies = SCF::get('technology'); ?>
-              <ul class="p-works-item-txt__list">
-                <?php foreach ($technologies as $technology) : ?>
-                  <li class="p-works-item-txt__list_item"><?php echo esc_html($technology); ?></li>
-                <?php endforeach; ?>
-              </ul>
-              <?php if (SCF::get('git') !== "") : ?>
-                <p class="p-works-item-txt__heading">[Git]</p>
-                <p><a class="p-works-item-txt__link" href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
-              <?php endif; ?>
-              <p class="p-works-item-txt__heading">[コメント]</p>
-              <p><?php echo SCF::get('comment'); ?></p>
+                <h3 class="p-works-item-txt__title"><?php the_title(); ?></h3>
+                <?php if (has_post_thumbnail()) : ?>
+                  <a class="p-works_item__link" href="<?php echo SCF::get('url') ?>" target="_blank" rel="noopener noreferrer"><img class="p-works_item__link_img" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>"> </a>
+                <?php endif ?>
+                <p class="p-works-item-txt__heading">[制作時期]</p>
+                <p><?php echo SCF::get('year'); ?>年</p>
+                <p class="p-works-item-txt__heading">[使用技術]</p>
+                <?php
+                $technologies = SCF::get('technology'); ?>
+                <ul class="p-works-item-txt__list">
+                  <?php foreach ($technologies as $technology) : ?>
+                    <li class="p-works-item-txt__list_item"><?php echo esc_html($technology); ?></li>
+                  <?php endforeach; ?>
+                </ul>
+                <?php if (SCF::get('git') !== "") : ?>
+                  <p class="p-works-item-txt__heading">[Git]</p>
+                  <p><a class="p-works-item-txt__link" href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
+                <?php endif; ?>
+                <p class="p-works-item-txt__heading">[コメント]</p>
+                <p><?php echo SCF::get('comment'); ?></p>
 
-              <?php if (SCF::get('basic_id') !== "") : ?>
-                <p class="p-works-item-txt__heading">[Basic認証]</p>
-                <p>ID : <?php echo SCF::get('basic_id'); ?>/ PW : <?php echo SCF::get('basic_pw'); ?></p>
-              <?php endif ?>
+                <?php if (SCF::get('basic_id') !== "") : ?>
+                  <p class="p-works-item-txt__heading">[Basic認証]</p>
+                  <p>ID : <?php echo SCF::get('basic_id'); ?>/ PW : <?php echo SCF::get('basic_pw'); ?></p>
+                <?php endif ?>
 
-            </article>
-          <?php endwhile; ?>
-        <?php else : ?>
-          <p>投稿がありません</p>
-        <?php
-        endif;
-        wp_reset_postdata();
-        ?>
+              </article>
+            <?php endwhile; ?>
+          <?php else : ?>
+            <p>投稿がありません</p>
+          <?php
+          endif;
+          wp_reset_postdata();
+          ?>
+
+        </div>
 
       </div>
 
@@ -304,4 +307,3 @@ $headersAdmin .= "\r\nBcc: gu.jp0604@gmail.com";
 </main>
 
 <?php get_footer(); ?>
-
