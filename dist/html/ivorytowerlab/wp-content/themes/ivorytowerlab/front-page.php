@@ -305,5 +305,3 @@ $headersAdmin .= "\r\nBcc: gu.jp0604@gmail.com";
 
 <?php get_footer(); ?>
 
-<script>
-

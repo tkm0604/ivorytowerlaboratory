@@ -13,7 +13,6 @@
 <meta property="og:url" content="">
 <meta property="og:locate" content="ja_JP">
 <meta property="og:site_name" content="">
-<link rel="icon" href="/assets/img/common/favicon.ico">
 <link rel="apple-touch-icon" href="/assets/img/common/apple-touch-icon.png">
 <link rel="manifest" href="/assets/img/common/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
