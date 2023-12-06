@@ -22,23 +22,22 @@ $recaptcha = json_decode(file_get_contents($recaptch_url . '?' . http_build_quer
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $errors = validateFormData($_POST); // フォームデータのバリデーション
+  $post = sanitize($_POST);
+  $errors = validateFormData($post); // フォームデータのバリデーション
   //$errors(バリデーションエラー)がemptyでなければ、入力画面に留まる
   if (!empty($errors)) {
     $_SESSION['formStatus'] = 'input';
   }
 
-  elseif ($recaptcha->score != 0.5) {
+  if($recaptcha->score != 0.5) {
     // ここに成功時の処理を書く
-
     //「確認画面」ボタンがクリックされた時、確認画面に遷移
     if (isset($_POST['submitConfirm'])) {
       $_SESSION['formStatus'] = 'confirm';
       // ここでフォームの各入力値をセッション変数に保存
       $_SESSION['formData'] = $_POST; // 全てのフォームデータを保存
     }
-
-    //「戻る」ボタンがクリックされた時
+  //「戻る」ボタンがクリックされた時
     elseif (isset($_POST['submitBack'])) {
       $_SESSION['formStatus'] = 'input';
     }
