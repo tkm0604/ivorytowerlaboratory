@@ -15,3 +15,15 @@ function my_remove_post_support() {
 }
 
 
+//-----------------------------------------------------
+// sendMail
+//-----------------------------------------------------
+function sendMail($to, $subject, $message, $headers){
+  $sendMail = wp_mail($to, $subject, $message, $headers);
+  if(!$sendMail){
+    $sendError = 'メール送信に失敗しました。';
+    return $sendError;
+  }
+  return '';
+}
+

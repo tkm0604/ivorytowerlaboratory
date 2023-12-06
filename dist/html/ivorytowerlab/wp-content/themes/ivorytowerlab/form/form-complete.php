@@ -5,8 +5,8 @@
     <a class="formStatus_complete__link" href="/">TOPへ戻る</a>
 </div>
 <!-- 送信に失敗した時 -->
-<?php if ($errorMessage ==  '') : ?>
+<?php if ($sendError !=  '') : ?>
     <!-- 送信のメッセージを表示 -->
-    <p><?php echo $errorMessage ?></p>
+    <p><?php echo $sendError ?></p>
 <?php endif; ?>
 

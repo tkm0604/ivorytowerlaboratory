@@ -3,15 +3,14 @@
 @use "sass:math";
 
 .p-about-me{
-    padding-top: 100px;
-    margin-top: -100px;
+    padding-top: 150px;
+    margin-top: -150px;
     &__inner{
         max-width: g.$device-l;
-        // margin: 0 auto;
-        margin: 0 auto;
-        padding: 100px 50px;
-        @media screen and (max-width:g.$device-m) {
-            padding: 100px 20px;
+        margin: 0 auto ;
+        padding: 50px 20px;
+        @media screen and (max-width: g.$device-m) {
+            padding: 20px;
         }
     }
 }

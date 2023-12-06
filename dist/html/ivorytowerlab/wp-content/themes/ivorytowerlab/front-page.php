@@ -1,54 +1,15 @@
 <?php
 
 session_start();
-$errorMessage = '';
+include_once('form/form-validation.php');
 
 
-// 'formStatus'が設定されていない場合に初期化
-if (!isset($_SESSION['formStatus'])) {
-  $_SESSION['formStatus'] = 'input'; // デフォルトの状態
-}
-
-// ページロード時にステータスが 'complete' ならば 'input' にリセット
-if ($_SESSION['formStatus'] == 'complete') {
+//ページにアクセスした際は $_SESSION['formStatus'] = 'input'に設定
+if (!isset($_SESSION['formStatus']) == "") {
   $_SESSION['formStatus'] = 'input';
 }
 
-include_once 'form/form-validation.php'; // バリデーションファイルの読み込み
-
-// フォームデータをセッションに保存
-function saveFormData()
-{
-  if (!empty($_POST)) {
-    // $_SESSION['formData'] を配列として初期化
-    if (!isset($_SESSION['formData']) || !is_array($_SESSION['formData'])) {
-      $_SESSION['formData'] = array();
-    }
-    foreach ($_POST as $key => $value) {
-      $_SESSION['formData'][$key] = $value;
-    }
-  }
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $errors = validateFormData($_POST); // フォームデータのバリデーション
-  saveFormData(); // フォームデータを保存
-
-  // バリデーションエラーがある場合、フォームステータスを 'input' に設定
-  if (!empty($errors)) {
-    $_SESSION['formStatus'] = 'input';
-  } else {
-    // バリデーションエラーがない場合、次のフォームステータスに進む
-    if (isset($_POST["submitConfirm"])) {
-      $_SESSION['formStatus'] = 'confirm';
-    }
-    // 戻るボタンを押したら入力画面に戻る    
-    elseif (isset($_POST["submitBack"])) {
-      $_SESSION['formStatus'] = 'input';
-    }
-  }
-}
-
+//recaptchaの情報をセット
 $recaptcha_response = $_POST['recaptcha_response'];
 $recaptcha_secret = '6LctMSUpAAAAAGMYKrabpEnNVxFkkf2fvPHe9yMI';
 
@@ -59,76 +20,89 @@ $recaptcha_params = [
 ];
 $recaptcha = json_decode(file_get_contents($recaptch_url . '?' . http_build_query($recaptcha_params)));
 
-if ($recaptcha->score >= 0.5) {
-  // ここに成功時の処理を書く
-  // $_SESSION['formStatus'] = 'confirm';
-} else {
-  // ここに失敗時の処理を書く　基本的には何もしなくて良い
-}
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $errors = validateFormData($_POST); // フォームデータのバリデーション
+  //$errors(バリデーションエラー)がemptyでなければ、入力画面に留まる
+  if (!empty($errors)) {
+    $_SESSION['formStatus'] = 'input';
+  }
 
+  elseif ($recaptcha->score != 0.5) {
+    // ここに成功時の処理を書く
 
-// フォームデータを取得するためのヘルパー関数
-function getSavedValue($key)
-{
-  return isset($_SESSION['formData'][$key]) ? $_SESSION['formData'][$key] : '';
-}
+    //「確認画面」ボタンがクリックされた時、確認画面に遷移
+    if (isset($_POST['submitConfirm'])) {
+      $_SESSION['formStatus'] = 'confirm';
+      // ここでフォームの各入力値をセッション変数に保存
+      $_SESSION['formData'] = $_POST; // 全てのフォームデータを保存
+    }
 
-$companyName = isset($_POST['company-name']) ? $_POST['company-name'] : '';
-$pic = isset($_POST['pic']) ? $_POST['pic'] : '';
-$picKana = isset($_POST['pic-kana']) ? $_POST['pic-kana'] : '';
-$email = isset($_POST['email']) ? $_POST['email'] : '';
-$tel1 = isset($_POST['tel-1']) ? $_POST['tel-1'] : '';
-$tel2 = isset($_POST['tel-2']) ? $_POST['tel-2'] : '';
-$tel3 = isset($_POST['tel-3']) ? $_POST['tel-3'] : '';
-$msg = isset($_POST['msg']) ? $_POST['msg'] : '';
+    //「戻る」ボタンがクリックされた時
+    elseif (isset($_POST['submitBack'])) {
+      $_SESSION['formStatus'] = 'input';
+    }
 
+    //「送信する」ボタンがクリックされた時
+    elseif (isset($_POST['submitFinal'])) {
+      //確認画面で再度バリデーションチェック
+      if (empty($errors)) {
+        //バリデーションエラーがなければ、送信完了画面を表示してメール送信
+        $_SESSION['formStatus'] = 'complete';
 
+        // 電話番号の構築
+        $telNumber = '';
+        if ($_POST['tel-1'] == '' && $_POST['tel-2'] == '' && $_POST['tel-3'] == '') {
+          $telNumber = "未入力";
+        } else {
+          $telNumber = $_POST['tel-1'] . '-' . $_POST['tel-2'] . '-' . $_POST['tel-3'];
+        }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['formStatus'] == 'confirm') {
-  if (isset($_POST["submitFinal"])) {
+        // 問い合わせ者への自動返信メールの内容を準備
+        $to = $_POST['email']; // 宛先のメールアドレス
+        $subject = "お問い合わせありがとうございます。 Ivory Tower Laboratory"; // 件名
+        $message = "会社名: " . $_POST['company-name'] . "\n"
+          . "担当者名: " . $_POST['pic'] . "\n"
+          . "メールアドレス: " . $_POST['email'] . "\n"
+          . "電話番号:" . $telNumber . "\n"
+          . "お問い合わせ内容: " . $_POST['msg'] . "\n" // メッセージ本文
+          . '担当者より1-3営業日以内にご連絡いたします。' . "\n";
+        $headers = "From: info@gu-jp.sakura.ne.jp"; // 送信元のメールアドレス
 
-    //お客様宛自動返信メール
-    $toCustomer = $_SESSION['formData']['email']; // 送信先のメールアドレス
-    $subjectCustomer = 'ivorytowerへお問い合わせありがとうございます。';
-    $messageCustomer = "会社名: " . $_SESSION['formData']['company-name'] . "\n"
-      . "担当者名: " . $_SESSION['formData']['pic'] . "\n"
-      . "担当者名カナ: " . $_SESSION['formData']['pic-kana'] . "\n"
-      . "メールアドレス: " . $_SESSION['formData']['email'] . "\n"
-      . "電話番号: " . $_SESSION['formData']['tel-1'] . "-" . $_SESSION['formData']['tel-2'] . "-" . $_SESSION['formData']['tel-3'] . "\n"
-      . "メッセージ: " . $_SESSION['formData']['msg'];
-    $headersCustomer = 'From: info@ivorytowerlab.jp'; // 送信元のメールアドレス
+        $sendError = sendMail($to, $subject, $message, $headers);
+        if ($sendEError == '') {
+          // メール送信に成功した場合の処理
+          $_SESSION['formData'] = array();
+        } else {
+          // メール送信に失敗した場合の処理
+           $sendError = '送信にしxっっつぱいsっっっっっひました';
+        }
 
-    $sentToCustomer = wp_mail($toCustomer, $subjectCustomer, $messageCustomer, $headersCustomer);
+        //管理者への自動返信メールの内容を準備
+        // 問い合わせ者への自動返信メールの内容を準備
+        $to = 'info@gu-jp.sakura.ne.jp'; // 宛先のメールアドレス
+        $subject = "Ivory Tower Laboratoryへお問い合わせがありました。"; // 件名
+        $message = "会社名: " . $_POST['company-name'] . "\n"
+          . "担当者名: " . $_POST['pic'] . "\n"
+          . "担当者名(カナ): " . $_POST['pic-2'] . "\n"
+          . "メールアドレス: " . $_POST['email'] . "\n"
+          . "電話番号:" . $telNumber . "\n"
+          . "お問い合わせ内容: " . $_POST['msg'] . "\n"; // メッセージ本文
+        $headers = "From:" . $_POST['email']; // 送信元のメールアドレス
 
-
-    // 管理者宛自動返信メール
-    $toAdmin = 'info@ivorytowerlab.jp'; // 送信先のメールアドレス
-    $subjectAdmin = 'ivorytowerへお問い合わせが届いています。';
-    $messageAdmin = "会社名: " . $_SESSION['formData']['company-name'] . "\n"
-      . "担当者名: " . $_SESSION['formData']['pic'] . "\n"
-      . "担当者名カナ: " . $_SESSION['formData']['pic-kana'] . "\n"
-      . "メールアドレス: " . $_SESSION['formData']['email'] . "\n"
-      . "電話番号: " . $_SESSION['formData']['tel-1'] . "-" . $_SESSION['formData']['tel-2'] . "-" . $_SESSION['formData']['tel-3'] . "\n"
-      . "メッセージ: " . $_SESSION['formData']['msg'];
-    $headersAdmin = 'From: ' . $_SESSION['formData']['email']; // 送信元のメールアドレス
-    // BCCアドレスの追加
-    $headersAdmin .= "\r\nBcc: gu.jp0604@gmail.com";
-
-    $sentToAdmin = wp_mail($toAdmin, $subjectAdmin, $messageAdmin, $headersAdmin);
-
-    // 送信結果の確認
-    if (!$sentToCustomer || !$sentToAdmin) {
-      // 送信に失敗した場合の処理
-      $errorMessage =  '送信に失敗しました。';
+        $sendError = sendMail($to, $subject, $message, $headers);
+      } else {
+        $_SESSION['formStatus'] = 'input';
+      }
     } else {
-      $_SESSION['formStatus'] = 'complete';
-      // セッションデータをクリア
-      unset($_SESSION['formData']);
+      // ここにrecaptc失敗時の処理を書く基本的には何もしなくて良い
     }
   }
 }
-
+ else {
+  //送信失敗時の処理を書く
+   $sendError = '送信に失敗しました。';
+}
 
 ?>
 
@@ -287,15 +261,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['formStatus'] == 'confirm'
 
       <?php if ($_SESSION['formStatus'] == 'input') : ?>
         <!-- 入力フォームのHTML -->
-        <?php include 'form/form-input.php'; ?>
+        <?php include("form/form-input.php"); ?>
 
       <?php elseif ($_SESSION['formStatus'] == 'confirm') : ?>
         <!-- 確認画面のHTML -->
-        <?php include 'form/form-confirm.php'; ?>
+        <?php include("form/form-confirm.php"); ?>
 
       <?php elseif ($_SESSION['formStatus'] == 'complete') : ?>
         <!-- 送信完了メッセージのHTML -->
-        <?php include 'form/form-complete.php'; ?>
+        <?php include("form/form-complete.php"); ?>
 
       <?php endif; ?>
 

@@ -3,12 +3,14 @@
 @use "sass:math";
 
 .p-contact {
-    padding-top: 100px;
-    margin-top: -100px;
+    padding-top: 150px;
+    margin-top: -150px;
     &__inner {
         margin: 0 auto;
-        padding: 100px 50px;
-
+        padding: 50px 20px;
+        @media screen and (max-width:g.$device-m) {
+            padding: 20px;
+        }
     }
 }
 
