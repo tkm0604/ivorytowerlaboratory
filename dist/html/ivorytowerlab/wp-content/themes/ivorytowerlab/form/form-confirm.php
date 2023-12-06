@@ -75,7 +75,7 @@
       </tr>
     </tbody>
   </table>
-
+  <?php wp_nonce_field('my-form', 'myform_nonce') ?>
   <div class="c-submit">
     <button type="submit" name="submitBack" value="back" class="c-submit__button">戻る</button>
     <br>

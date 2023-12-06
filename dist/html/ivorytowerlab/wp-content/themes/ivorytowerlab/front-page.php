@@ -24,24 +24,28 @@ $recaptcha = json_decode(file_get_contents($recaptch_url . '?' . http_build_quer
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $post = sanitize($_POST);
   $errors = validateFormData($post); // フォームデータのバリデーション
-  //$errors(バリデーションエラー)がemptyでなければ、入力画面に留まる
+
+  //$errors(バリデーションエラー)がエラーがあれば入力画面に留まる
   if (!empty($errors)) {
+    $_SESSION['formData'] = $post; // エラーがある場合、フォームデータをセッションに保存
     $_SESSION['formStatus'] = 'input';
   }
 
-  if($recaptcha->score != 0.5) {
+  elseif ($recaptcha->score != 0.5) {
     // ここに成功時の処理を書く
-    //「確認画面」ボタンがクリックされた時、確認画面に遷移
-    if (isset($_POST['submitConfirm'])) {
+    $myform_nonce = $_POST['myform_nonce'];
+
+    //「確認画面」ボタンがクリックされた時、nonceのチェックをして確認画面に遷移
+    if (isset($_POST['submitConfirm']) && wp_verify_nonce( $myform_nonce, 'my-form') ) {
+      
       $_SESSION['formStatus'] = 'confirm';
       // ここでフォームの各入力値をセッション変数に保存
       $_SESSION['formData'] = $_POST; // 全てのフォームデータを保存
-    }
-  //「戻る」ボタンがクリックされた時
-    elseif (isset($_POST['submitBack'])) {
+    } 
+    //「戻る」ボタンがクリックされた時
+    if (isset($_POST['submitBack'])) {
       $_SESSION['formStatus'] = 'input';
     }
-
     //「送信する」ボタンがクリックされた時
     elseif (isset($_POST['submitFinal'])) {
       //確認画面で再度バリデーションチェック
@@ -49,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //バリデーションエラーがなければ、送信完了画面を表示してメール送信
         $_SESSION['formStatus'] = 'complete';
 
+        //メール本文構築
         // 電話番号の構築
         $telNumber = '';
         if ($_POST['tel-1'] == '' && $_POST['tel-2'] == '' && $_POST['tel-3'] == '') {
@@ -74,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $_SESSION['formData'] = array();
         } else {
           // メール送信に失敗した場合の処理
-           $sendError = '送信にしxっっつぱいsっっっっっひました';
+          $sendError = '送信に失敗しました。';
         }
 
         //管理者への自動返信メールの内容を準備
@@ -97,12 +102,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // ここにrecaptc失敗時の処理を書く基本的には何もしなくて良い
     }
   }
-}
- else {
+} else {
   //送信失敗時の処理を書く
-   $sendError = '送信に失敗しました。';
+  $sendError = '送信に失敗しました。';
 }
 
+var_dump($_SESSION['formData']);
 ?>
 
 <?php get_header(); ?>

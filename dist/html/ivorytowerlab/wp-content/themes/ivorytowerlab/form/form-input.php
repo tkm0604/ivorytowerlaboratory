@@ -21,7 +21,7 @@
                 <th class="p-input-item__inner">
                     <p class="p-input-item__inner-title">担当者名</p>
                     <p><span class="p-input-item__inner-req">必須</span></p>
-                </th>
+        ]        </th>
                 <td class="p-input-info">
                     <input type="text" name="pic" class="p-input-info__txt" size="60" value="<?php echo htmlspecialchars($_SESSION['formData']['pic'] ?? ''); ?>" placeholder="例）山田太郎">
                     <?php if (isset($errors['pic'])) : ?>
@@ -66,6 +66,9 @@
                         - <input type="text" name="tel-2" class="p-input-tell__number" size="5" maxlength="4" value="<?php echo htmlspecialchars($_SESSION['formData']['tel-2'] ?? ''); ?>">
                         - <input type="text" name="tel-3" class="p-input-tell__number" size="5" maxlength="4" value="<?php echo htmlspecialchars($_SESSION['formData']['tel-3'] ?? ''); ?>">
                     </div>
+                    <?php if (isset($errors['tel'])) : ?>
+                        <p class="p-input-info__error"><?php echo $errors['tel']; ?></p>
+                    <?php endif; ?>
                 </td>
             </tr>
 
@@ -84,11 +87,11 @@
 
         </tbody>
     </table>
-
     <div class="c-submit">
         <input type="submit" name="submitConfirm" value="確認画面へ" class="c-submit__button" onclick="navigateToContact();">
     </div>
     <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+    <?php wp_nonce_field('my-form', 'myform_nonce') ?>
 </form>
 
 <script src="https://www.google.com/recaptcha/api.js?render=6LctMSUpAAAAAN28mFY3Z9hiCXUfuFUUVe_AhlrW"></script>
@@ -102,4 +105,3 @@
         });
     });
 </script>
-
