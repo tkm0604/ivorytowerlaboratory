@@ -5,7 +5,7 @@ include_once('form/form-validation.php');
 
 
 //ページにアクセスした際は $_SESSION['formStatus'] = 'input'に設定
-if (!isset($_SESSION['formStatus']) == "") {
+if (!isset($_SESSION['formStatus'])) {
   $_SESSION['formStatus'] = 'input';
 }
 
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $sendError = '送信に失敗しました。';
 }
 
-var_dump($_SESSION['formData']);
+
 ?>
 
 <?php get_header(); ?>
