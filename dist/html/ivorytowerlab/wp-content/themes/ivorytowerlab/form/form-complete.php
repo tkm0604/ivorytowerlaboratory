@@ -16,4 +16,5 @@
         <!-- 送信に失敗した時 -->
         <p class="formStatus_complete__txt">送信に失敗しました。</p>
     <?php endif; ?>
+    
 </div>

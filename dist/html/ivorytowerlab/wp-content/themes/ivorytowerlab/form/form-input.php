@@ -96,8 +96,8 @@
 
         <?php wp_nonce_field('my-form', 'myform_nonce') ?>
     </form>
+    
 <?php else : ?>
-    <?php var_dump($recap); ?>
     <div class="formStatus_complete">
         <p class="formStatus_complete__txt">申し訳ありませんが、セキュリティ認証に失敗しました。<br> <a class="formStatus_complete__link" href="/">TOPへ戻る</a>からページをリロードしてもう一度お試しいただくか、しばらくしてから再度お問い合わせください。</p>
     </div>
