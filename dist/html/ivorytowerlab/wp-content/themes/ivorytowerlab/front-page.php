@@ -2,57 +2,70 @@
 
 session_start();
 include_once('form/form-validation.php');
+$sendError = ''; //初期化
+$reCAPTCHAError = ''; //初期化
+$recap = ''; //初期化
+$senderror = ''; //初期化
 
+
+// ページの最初で、送信完了後のリロードをチェック
+if (isset($_SESSION['completed']) && $_SESSION['completed']) {
+  $_SESSION['formStatus'] = 'input';
+  unset($_SESSION['completed']); // または $_SESSION['completed'] = false;
+  unset($_SESSION['formData']);
+}
 
 //ページにアクセスした際は $_SESSION['formStatus'] = 'input'に設定
 if (!isset($_SESSION['formStatus'])) {
   $_SESSION['formStatus'] = 'input';
 }
 
-//recaptchaの情報をセット
-$recaptcha_response = $_POST['recaptcha_response'];
-$recaptcha_secret = '6LctMSUpAAAAAGMYKrabpEnNVxFkkf2fvPHe9yMI';
-
-$recaptch_url = 'https://www.google.com/recaptcha/api/siteverify';
-$recaptcha_params = [
-  'secret' => $recaptcha_secret,
-  'response' => $recaptcha_response,
-];
-$recaptcha = json_decode(file_get_contents($recaptch_url . '?' . http_build_query($recaptcha_params)));
-
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $post = sanitize($_POST);
-  $errors = validateFormData($post); // フォームデータのバリデーション
 
   //$errors(バリデーションエラー)がエラーがあれば入力画面に留まる
   if (!empty($errors)) {
     $_SESSION['formData'] = $post; // エラーがある場合、フォームデータをセッションに保存
     $_SESSION['formStatus'] = 'input';
-  }
+  } else {
+    $post = sanitize($_POST);
+    $errors = validateFormData($post); // フォームデータのバリデーション
 
-  elseif ($recaptcha->score != 0.5) {
-    // ここに成功時の処理を書く
     $myform_nonce = $_POST['myform_nonce'];
 
     //「確認画面」ボタンがクリックされた時、nonceのチェックをして確認画面に遷移
-    if (isset($_POST['submitConfirm']) && wp_verify_nonce( $myform_nonce, 'my-form') ) {
-      
-      $_SESSION['formStatus'] = 'confirm';
-      // ここでフォームの各入力値をセッション変数に保存
-      $_SESSION['formData'] = $_POST; // 全てのフォームデータを保存
-    } 
-    //「戻る」ボタンがクリックされた時
+    if (isset($_POST['submitConfirm']) && wp_verify_nonce($myform_nonce, 'my-form') && empty($errors)) {
+      //recaptchaの情報をセット
+      $recaptcha_response = $_POST['recaptcha_response'];
+      $recaptcha_secret = '6LctMSUpAAAAAGMYKrabpEnNVxFkkf2fvPHe9yMI';
+
+      $recaptch_url = 'https://www.google.com/recaptcha/api/siteverify';
+      $recaptcha_params = [
+        'secret' => $recaptcha_secret,
+        'response' => $recaptcha_response,
+      ];
+      $recaptcha = json_decode(file_get_contents($recaptch_url . '?' . http_build_query($recaptcha_params)));
+      if ($recaptcha->success && $recaptcha->score >= 0.5) {
+
+        $_SESSION['formStatus'] = 'confirm';
+        // ここでフォームの各入力値をセッション変数に保存
+        $_SESSION['formData'] = $_POST; // 全てのフォームデータを保存
+        $recap  = 'success';
+      } else {
+        $recap  = 'error';
+      }
+    }
+
+
     if (isset($_POST['submitBack'])) {
       $_SESSION['formStatus'] = 'input';
     }
+
     //「送信する」ボタンがクリックされた時
-    elseif (isset($_POST['submitFinal'])) {
+    if (isset($_POST['submitFinal'])) {
+
       //確認画面で再度バリデーションチェック
       if (empty($errors)) {
         //バリデーションエラーがなければ、送信完了画面を表示してメール送信
-        $_SESSION['formStatus'] = 'complete';
-
         //メール本文構築
         // 電話番号の構築
         $telNumber = '';
@@ -73,14 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           . '担当者より1-3営業日以内にご連絡いたします。' . "\n";
         $headers = "From: info@gu-jp.sakura.ne.jp"; // 送信元のメールアドレス
 
-        $sendError = sendMail($to, $subject, $message, $headers);
-        if ($sendEError == '') {
-          // メール送信に成功した場合の処理
-          $_SESSION['formData'] = array();
-        } else {
-          // メール送信に失敗した場合の処理
-          $sendError = '送信に失敗しました。';
-        }
 
         //管理者への自動返信メールの内容を準備
         // 問い合わせ者への自動返信メールの内容を準備
@@ -95,18 +100,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $headers = "From:" . $_POST['email']; // 送信元のメールアドレス
 
         $sendError = sendMail($to, $subject, $message, $headers);
+        // 送信完了後、ステータスを'complete'に設定
+        $_SESSION['formStatus'] = 'complete';
+        $_SESSION['completed'] = true; // 送信完了のマーカーとして設定
       } else {
-        $_SESSION['formStatus'] = 'input';
+        //確認画面でのPOSTの際にバリデーションに引っ掛かると、エラーメッセージを表示して$_POSTを空にする。input画面に戻る
+        $senderror = 'true';
       }
-    } else {
-      // ここにrecaptc失敗時の処理を書く基本的には何もしなくて良い
     }
   }
-} else {
-  //送信失敗時の処理を書く
-  $sendError = '送信に失敗しました。';
 }
-
 
 ?>
 
