@@ -1,4 +1,3 @@
-<?php if ($senderror == '') : ?>
   <form class="p-form" method="post" action="" enctype="multipart/form-data">
     <table class="p-contact-body">
       <tbody>
@@ -83,13 +82,3 @@
       <input type="submit" name="submitFinal" value="送信する" class="c-submit__button">
     </div>
   </form>
-  <!-- //確認画面でのPOSTの際にバリデーションに引っ掛かると、エラーメッセージを表示して$_POSTを空にする。input画面に戻る -->
-<?php else : ?>
-  <div class="formStatus_complete">
-    <p class="formStatus_complete__txt">不正な入力が検知され、送信に失敗しました。</p>
-    <p class="formStatus_complete__txt">以下の戻るボタンより、再度入力いただくか、<a href="mailto:info@ivorytowerlab.jp">info@ivorytowerlab.jp</a>までご連絡ください。</p>
-    <form method="post">
-      <input type="submit" name="submitBack" value="戻る" class="formStatus_complete__link">
-    </form>
-  </div>
-<?php endif; ?>

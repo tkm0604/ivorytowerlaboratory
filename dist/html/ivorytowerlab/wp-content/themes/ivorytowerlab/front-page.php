@@ -21,14 +21,14 @@ if (!isset($_SESSION['formStatus'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+  $post = sanitize($_POST);
+  $errors = validateFormData($post); // フォームデータのバリデーション
   //$errors(バリデーションエラー)がエラーがあれば入力画面に留まる
   if (!empty($errors)) {
-    $_SESSION['formData'] = $post; // エラーがある場合、フォームデータをセッションに保存
+    $_SESSION['formData'] =  $post = sanitize($_POST); // エラーがある場合、フォームデータをセッションに保存
     $_SESSION['formStatus'] = 'input';
   } else {
-    $post = sanitize($_POST);
-    $errors = validateFormData($post); // フォームデータのバリデーション
+
 
     $myform_nonce = $_POST['myform_nonce'];
 
@@ -104,9 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // 送信完了後、ステータスを'complete'に設定
         $_SESSION['formStatus'] = 'complete';
         $_SESSION['completed'] = true; // 送信完了のマーカーとして設定
-      } else {
-        //確認画面でのPOSTの際にバリデーションに引っ掛かると、エラーメッセージを表示して$_POSTを空にする。input画面に戻る
-        $senderror = 'true';
       }
     }
   }
