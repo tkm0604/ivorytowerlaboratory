@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['submitConfirm']) && wp_verify_nonce($myform_nonce, 'my-form') && empty($errors)) {
       //recaptchaの情報をセット
       $recaptcha_response = $_POST['recaptcha_response'];
+      //recaptchaのサイトキー、シークレットキーは開発環境と、本番環境では異なります。
       $recaptcha_secret = '6LctMSUpAAAAAGMYKrabpEnNVxFkkf2fvPHe9yMI';
 
       $recaptch_url = 'https://www.google.com/recaptcha/api/siteverify';
