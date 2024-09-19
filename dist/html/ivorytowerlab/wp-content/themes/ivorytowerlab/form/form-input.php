@@ -103,10 +103,10 @@
     </div>
 <?php endif; ?>
 <!-- //recaptchaのサイトキー、シークレットキーは開発環境と、本番環境では異なります。 -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LctMSUpAAAAAN28mFY3Z9hiCXUfuFUUVe_AhlrW"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Le1rUkqAAAAAD2-l279Q0tnpvM_EVtSeGEoby94"></script>
 <script>
     grecaptcha.ready(function() {
-        grecaptcha.execute('6LctMSUpAAAAAN28mFY3Z9hiCXUfuFUUVe_AhlrW', {
+        grecaptcha.execute('6Le1rUkqAAAAAD2-l279Q0tnpvM_EVtSeGEoby94', {
             action: 'submit'
         }).then(function(token) {
             // トークンをフォームに追加
