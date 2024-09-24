@@ -97,10 +97,16 @@
         <?php wp_nonce_field('my-form', 'myform_nonce') ?>
     </form>
 
-<?php else : ?>
+    <?php else : ?>
     <div class="formStatus_complete">
-        <p class="formStatus_complete__txt">申し訳ありませんが、セキュリティ認証に失敗しました。<br> <a class="formStatus_complete__link" href="/">TOPへ戻る</a>からページをリロードしてもう一度お試しいただくか、しばらくしてから再度お問い合わせください。</p>
+        <p class="formStatus_complete__txt">
+            申し訳ありませんが、セキュリティ認証に失敗しました。<br>
+            <a class="formStatus_complete__link" href="/wp">TOPへ戻る</a>からページをリロードしてもう一度お試しいただくか、しばらくしてから再度お問い合わせください。
+        </p>
+        <?php error_log('reCAPTCHAエラーが発生しました。'); ?>
     </div>
+
+    
 <?php endif; ?>
 <!-- //recaptchaのサイトキー、シークレットキーは開発環境と、本番環境では異なります。 -->
 <script src="https://www.google.com/recaptcha/api.js?render=6Le1rUkqAAAAAD2-l279Q0tnpvM_EVtSeGEoby94"></script>

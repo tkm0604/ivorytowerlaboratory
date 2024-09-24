@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //recaptchaの情報をセット
       $recaptcha_response = $_POST['recaptcha_response'];
       //recaptchaのサイトキー、シークレットキーは開発環境と、本番環境では異なります。
-      $recaptcha_secret = '6LctMSUpAAAAAGMYKrabpEnNVxFkkf2fvPHe9yMI';
+      $recaptcha_secret = '6Le1rUkqAAAAAOHAdcbNNuhP4UMqv-5xa69rHEx5';
 
       $recaptch_url = 'https://www.google.com/recaptcha/api/siteverify';
       $recaptcha_params = [
@@ -76,34 +76,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $telNumber = $_POST['tel-1'] . '-' . $_POST['tel-2'] . '-' . $_POST['tel-3'];
         }
 
-        // 問い合わせ者への自動返信メールの内容を準備
-        $to = $_POST['email']; // 宛先のメールアドレス
-        $subject = "お問い合わせありがとうございます。 Ivory Tower Laboratory"; // 件名
-        $message = "会社名: " . $_POST['company-name'] . "\n"
-          . "担当者名: " . $_POST['pic'] . "\n"
-          . "メールアドレス: " . $_POST['email'] . "\n"
-          . "電話番号:" . $telNumber . "\n"
-          . "お問い合わせ内容: " . $_POST['msg'] . "\n" // メッセージ本文
-          . '担当者より1-3営業日以内にご連絡いたします。' . "\n";
-        $headers = "From: info@gu-jp.sakura.ne.jp"; // 送信元のメールアドレス
+// 問い合わせ者への自動返信メールの内容を準備
+$to = $_POST['email']; // 宛先のメールアドレス
+$subject = "お問い合わせありがとうございます。 Ivory Tower Laboratory"; // 件名
+$message = "会社名: " . $_POST['company-name'] . "\n"
+  . "担当者名: " . $_POST['pic'] . "\n"
+  . "メールアドレス: " . $_POST['email'] . "\n"
+  . "電話番号:" . $telNumber . "\n"
+  . "お問い合わせ内容: " . $_POST['msg'] . "\n" // メッセージ本文
+  . '担当者より1-3営業日以内にご連絡いたします。' . "\n";
+$headers = "From:ivorytower-lab@www1235.sakura.ne.jp"; // 送信元のメールアドレス
 
+// 管理者への自動返信メールの内容を準備
+$to_admin = 'ivorytower-lab@www1235.sakura.ne.jp'; // 管理者のメールアドレス
+$subject_admin = "Ivory Tower Laboratoryへお問い合わせがありました。"; // 件名
+$message_admin = "会社名: " . $_POST['company-name'] . "\n"
+  . "担当者名: " . $_POST['pic'] . "\n"
+  . "担当者名(カナ): " . $_POST['pic-2'] . "\n"
+  . "メールアドレス: " . $_POST['email'] . "\n"
+  . "電話番号:" . $telNumber . "\n"
+  . "お問い合わせ内容: " . $_POST['msg'] . "\n"; // メッセージ本文
+$headers_admin = "From:ivorytower-lab@www1235.sakura.ne.jp"; // 送信元のメールアドレス
 
-        //管理者への自動返信メールの内容を準備
-        // 問い合わせ者への自動返信メールの内容を準備
-        $to = 'info@gu-jp.sakura.ne.jp'; // 宛先のメールアドレス
-        $subject = "Ivory Tower Laboratoryへお問い合わせがありました。"; // 件名
-        $message = "会社名: " . $_POST['company-name'] . "\n"
-          . "担当者名: " . $_POST['pic'] . "\n"
-          . "担当者名(カナ): " . $_POST['pic-2'] . "\n"
-          . "メールアドレス: " . $_POST['email'] . "\n"
-          . "電話番号:" . $telNumber . "\n"
-          . "お問い合わせ内容: " . $_POST['msg'] . "\n"; // メッセージ本文
-        $headers = "From:" . $_POST['email']; // 送信元のメールアドレス
+// 送信者へのメール送信
+$sendErrorUser = mail($to, $subject, $message, $headers);
 
-        $sendError = sendMail($to, $subject, $message, $headers);
-        // 送信完了後、ステータスを'complete'に設定
-        $_SESSION['formStatus'] = 'complete';
-        $_SESSION['completed'] = true; // 送信完了のマーカーとして設定
+// 管理者へのメール送信
+$sendErrorAdmin = mail($to_admin, $subject_admin, $message_admin, $headers_admin);
+
+// エラーログと画面表示
+if (!$sendErrorUser || !$sendErrorAdmin) {
+    error_log("Send Error: ユーザーまたは管理者へのメール送信に失敗しました。");
+    if (!$sendErrorUser) {
+        error_log("User mail send failed: " . print_r($headers, true));
+    }
+    if (!$sendErrorAdmin) {
+        error_log("Admin mail send failed: " . print_r($headers_admin, true));
+    }
+    echo "<p>メール送信に失敗しました。エラー内容を確認してください。</p>";
+} else {
+    // 送信完了後、ステータスを'complete'に設定
+    $_SESSION['formStatus'] = 'complete';
+    $_SESSION['completed'] = true; // 送信完了のマーカーとして設定
+}
+
       }
     }
   }

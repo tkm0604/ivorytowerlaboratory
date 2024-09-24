@@ -30,7 +30,7 @@
     <header id="main" class="l-header">
     <div class="p-header-inner">
         <h1 class="p-header-inner__title">
-            <a class="p-header-inner__link" href="https://ivorytowerlab.jp/">
+            <a class="p-header-inner__link" href="https://ivorytower-lab.sakura.ne.jp/wp/">
                 <img class="p-header-inner__logo" src="/assets/img/common/ivory_tower_lab_logo.png" alt="ivorytowerlab">
             </a>
         </h1>
