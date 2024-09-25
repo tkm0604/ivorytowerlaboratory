@@ -168,9 +168,8 @@ if (!$sendErrorUser || !$sendErrorAdmin) {
                 <p class="p-about-me-txt__heading"><?php echo SCF::get('about_me'); ?></p>
                 <span class="p-about-me-txt__strong">経歴</span>
                 <div class="p-about-me-career">
-
                   <p class="p-about-me-career__txt">
-                    <?php echo SCF::get('career'); ?>
+                    <?php echo nl2br(SCF::get('career')); ?>
                   </p>
                 </div>
               </div>
