@@ -231,7 +231,7 @@ if (!$sendErrorUser || !$sendErrorAdmin) {
                   <p><a class="p-works-item-txt__link" href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
                 <?php endif; ?>
                 <p class="p-works-item-txt__heading">[コメント]</p>
-                <p><?php echo SCF::get('comment'); ?></p>
+                <p><?php echo nl2br(SCF::get('comment')); ?></p>
 
                 <?php if (SCF::get('basic_id') !== "") : ?>
                   <p class="p-works-item-txt__heading">[Basic認証]</p>
