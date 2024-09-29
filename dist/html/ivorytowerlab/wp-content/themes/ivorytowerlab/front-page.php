@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['submitConfirm']) && wp_verify_nonce($myform_nonce, 'my-form') && empty($errors)) {
       //recaptchaの情報をセット
       $recaptcha_response = $_POST['recaptcha_response'];
-      //recaptchaのサイトキー、シークレットキーは開発環境と、本番環境では異なります。
-      $recaptcha_secret = '6Le1rUkqAAAAAOHAdcbNNuhP4UMqv-5xa69rHEx5';
+      //recaptchaのシークレットキーは開発環境と、本番環境では異なります。
+      $recaptcha_secret = '6LdAcVEqAAAAAPb9OUnFCwREug7FRGAGYvsLhjjh';
 
       $recaptch_url = 'https://www.google.com/recaptcha/api/siteverify';
       $recaptcha_params = [
@@ -85,10 +85,10 @@ $message = "会社名: " . $_POST['company-name'] . "\n"
   . "電話番号:" . $telNumber . "\n"
   . "お問い合わせ内容: " . $_POST['msg'] . "\n" // メッセージ本文
   . '担当者より1-3営業日以内にご連絡いたします。' . "\n";
-$headers = "From:ivorytower-lab@www1235.sakura.ne.jp"; // 送信元のメールアドレス
+$headers = "From:info-ivory-tower@ivorytower-lab.ivory.ne.jp"; // 送信元のメールアドレス
 
 // 管理者への自動返信メールの内容を準備
-$to_admin = 'ivorytower-lab@www1235.sakura.ne.jp'; // 管理者のメールアドレス
+$to_admin = 'info-ivory-tower@ivorytower-lab.ivory.ne.jp'; // 管理者のメールアドレス
 $subject_admin = "Ivory Tower Laboratoryへお問い合わせがありました。"; // 件名
 $message_admin = "会社名: " . $_POST['company-name'] . "\n"
   . "担当者名: " . $_POST['pic'] . "\n"
@@ -96,7 +96,7 @@ $message_admin = "会社名: " . $_POST['company-name'] . "\n"
   . "メールアドレス: " . $_POST['email'] . "\n"
   . "電話番号:" . $telNumber . "\n"
   . "お問い合わせ内容: " . $_POST['msg'] . "\n"; // メッセージ本文
-$headers_admin = "From:ivorytower-lab@www1235.sakura.ne.jp"; // 送信元のメールアドレス
+$headers_admin = "From:info-ivory-tower@ivorytower-lab.ivory.ne.jp"; // 送信元のメールアドレス
 
 // 送信者へのメール送信
 $sendErrorUser = mail($to, $subject, $message, $headers);
