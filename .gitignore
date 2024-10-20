@@ -26,6 +26,8 @@ dist/html/ivorytowerlab/xmlrpc.php
 
 # Configuration
 dist/html/ivorytowerlab/wp-config.php
+dist/html/ivorytowerlab/prod_wp-config.php
+
 
 # Example themes
 dist/html/ivorytowerlab/wp-content/themes/twenty*/
@@ -41,6 +43,10 @@ dist/html/ivorytowerlab/wp-content/uploads/
 
 # htaccess
 dist/html/ivorytowerlab/.htaccess
+
+# htaccess
+dist/html/ivorytowerlab/prod_.htaccess
+
 
 # All plugins
 #

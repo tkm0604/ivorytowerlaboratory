@@ -37,8 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //recaptchaの情報をセット
       $recaptcha_response = $_POST['recaptcha_response'];
       //recaptchaのシークレットキーは開発環境と、本番環境では異なります。
-      $recaptcha_secret = '6LdAcVEqAAAAAPb9OUnFCwREug7FRGAGYvsLhjjh';
-
+      $recaptcha_secret = getenv('RECAPTCHA_SECRET_KEY');
       $recaptch_url = 'https://www.google.com/recaptcha/api/siteverify';
       $recaptcha_params = [
         'secret' => $recaptcha_secret,
@@ -126,7 +125,6 @@ if (!$sendErrorUser || !$sendErrorAdmin) {
 }
 
 ?>
-
 <?php get_header(); ?>
 
 <main class="l-main">

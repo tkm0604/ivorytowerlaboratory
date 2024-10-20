@@ -106,17 +106,33 @@
         <?php error_log('reCAPTCHAエラーが発生しました。'); ?>
     </div>
 
-    
+ 
 <?php endif; ?>
+<?php 
+$recaptcha_site_key = getenv('RECAPTCHA_SITE_KEY');
+?>  
+
 <!-- //recaptchaのサイトキーは開発環境と、本番環境では異なります。 -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LdAcVEqAAAAAOgp9GaVUo_lE_D7AhMGtto2nehE"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=<?php echo $recaptcha_site_key; ?>"></script>
 <script>
-    grecaptcha.ready(function() {
-        grecaptcha.execute('6LdAcVEqAAAAAOgp9GaVUo_lE_D7AhMGtto2nehE', {
-            action: 'submit'
-        }).then(function(token) {
-            // トークンをフォームに追加
-            document.getElementById('recaptchaResponse').value = token;
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOMContentLoaded fired'); // デバッグ用
+        grecaptcha.ready(function () {
+            console.log('reCAPTCHA ready'); // デバッグ用
+            grecaptcha.execute('<?php echo $recaptcha_site_key; ?>', { action: 'submit' })
+                .then(function (token) {
+                    // トークンをフォームに追加
+                    var recaptchaResponse = document.getElementById('recaptchaResponse');
+                    if (recaptchaResponse) {
+                        recaptchaResponse.value = token;
+                        console.log('reCAPTCHA token set:', token); // デバッグ用
+                    } else {
+                        console.error('recaptchaResponse element not found.');
+                    }
+                })
+                .catch(function (error) {
+                    console.error('reCAPTCHA error:', error);
+                });
         });
     });
 </script>
