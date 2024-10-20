@@ -116,9 +116,7 @@ $recaptcha_site_key = getenv('RECAPTCHA_SITE_KEY');
 <script src="https://www.google.com/recaptcha/api.js?render=<?php echo $recaptcha_site_key; ?>"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('DOMContentLoaded fired'); // デバッグ用
         grecaptcha.ready(function () {
-            console.log('reCAPTCHA ready'); // デバッグ用
             grecaptcha.execute('<?php echo $recaptcha_site_key; ?>', { action: 'submit' })
                 .then(function (token) {
                     // トークンをフォームに追加
