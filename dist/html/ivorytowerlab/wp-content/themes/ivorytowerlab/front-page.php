@@ -75,50 +75,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $telNumber = $_POST['tel-1'] . '-' . $_POST['tel-2'] . '-' . $_POST['tel-3'];
         }
 
-// 問い合わせ者への自動返信メールの内容を準備
-$to = $_POST['email']; // 宛先のメールアドレス
-$subject = "お問い合わせありがとうございます。 Ivory Tower Laboratory"; // 件名
-$message = "会社名: " . $_POST['company-name'] . "\n"
-  . "担当者名: " . $_POST['pic'] . "\n"
-  . "メールアドレス: " . $_POST['email'] . "\n"
-  . "電話番号:" . $telNumber . "\n"
-  . "お問い合わせ内容: " . $_POST['msg'] . "\n" // メッセージ本文
-  . '担当者より1-3営業日以内にご連絡いたします。' . "\n";
-$headers = "From:info-ivory-tower@ivorytower-lab.ivory.ne.jp"; // 送信元のメールアドレス
+        // 問い合わせ者への自動返信メールの内容を準備
+        $to = $_POST['email']; // 宛先のメールアドレス
+        $subject = "お問い合わせありがとうございます。 Ivory Tower Laboratory"; // 件名
+        $message = "会社名: " . $_POST['company-name'] . "\n"
+          . "担当者名: " . $_POST['pic'] . "\n"
+          . "メールアドレス: " . $_POST['email'] . "\n"
+          . "電話番号:" . $telNumber . "\n"
+          . "お問い合わせ内容: " . $_POST['msg'] . "\n" // メッセージ本文
+          . '担当者より1-3営業日以内にご連絡いたします。' . "\n";
+        $headers = "From:info-ivory-tower@ivorytower-lab.ivory.ne.jp"; // 送信元のメールアドレス
 
-// 管理者への自動返信メールの内容を準備
-$to_admin = 'info-ivory-tower@ivorytower-lab.ivory.ne.jp'; // 管理者のメールアドレス
-$subject_admin = "Ivory Tower Laboratoryへお問い合わせがありました。"; // 件名
-$message_admin = "会社名: " . $_POST['company-name'] . "\n"
-  . "担当者名: " . $_POST['pic'] . "\n"
-  . "担当者名(カナ): " . $_POST['pic-2'] . "\n"
-  . "メールアドレス: " . $_POST['email'] . "\n"
-  . "電話番号:" . $telNumber . "\n"
-  . "お問い合わせ内容: " . $_POST['msg'] . "\n"; // メッセージ本文
-$headers_admin = "From:info-ivory-tower@ivorytower-lab.ivory.ne.jp"; // 送信元のメールアドレス
+        // 管理者への自動返信メールの内容を準備
+        $to_admin = 'info-ivory-tower@ivorytower-lab.ivory.ne.jp'; // 管理者のメールアドレス
+        $subject_admin = "Ivory Tower Laboratoryへお問い合わせがありました。"; // 件名
+        $message_admin = "会社名: " . $_POST['company-name'] . "\n"
+          . "担当者名: " . $_POST['pic'] . "\n"
+          . "担当者名(カナ): " . $_POST['pic-2'] . "\n"
+          . "メールアドレス: " . $_POST['email'] . "\n"
+          . "電話番号:" . $telNumber . "\n"
+          . "お問い合わせ内容: " . $_POST['msg'] . "\n"; // メッセージ本文
+        $headers_admin = "From:info-ivory-tower@ivorytower-lab.ivory.ne.jp"; // 送信元のメールアドレス
 
-// 送信者へのメール送信
-$sendErrorUser = mail($to, $subject, $message, $headers);
+        // 送信者へのメール送信
+        $sendErrorUser = mail($to, $subject, $message, $headers);
 
-// 管理者へのメール送信
-$sendErrorAdmin = mail($to_admin, $subject_admin, $message_admin, $headers_admin);
+        // 管理者へのメール送信
+        $sendErrorAdmin = mail($to_admin, $subject_admin, $message_admin, $headers_admin);
 
-// エラーログと画面表示
-if (!$sendErrorUser || !$sendErrorAdmin) {
-    error_log("Send Error: ユーザーまたは管理者へのメール送信に失敗しました。");
-    if (!$sendErrorUser) {
-        error_log("User mail send failed: " . print_r($headers, true));
-    }
-    if (!$sendErrorAdmin) {
-        error_log("Admin mail send failed: " . print_r($headers_admin, true));
-    }
-    echo "<p>メール送信に失敗しました。エラー内容を確認してください。</p>";
-} else {
-    // 送信完了後、ステータスを'complete'に設定
-    $_SESSION['formStatus'] = 'complete';
-    $_SESSION['completed'] = true; // 送信完了のマーカーとして設定
-}
-
+        // エラーログと画面表示
+        if (!$sendErrorUser || !$sendErrorAdmin) {
+          error_log("Send Error: ユーザーまたは管理者へのメール送信に失敗しました。");
+          if (!$sendErrorUser) {
+            error_log("User mail send failed: " . print_r($headers, true));
+          }
+          if (!$sendErrorAdmin) {
+            error_log("Admin mail send failed: " . print_r($headers_admin, true));
+          }
+          echo "<p>メール送信に失敗しました。エラー内容を確認してください。</p>";
+        } else {
+          // 送信完了後、ステータスを'complete'に設定
+          $_SESSION['formStatus'] = 'complete';
+          $_SESSION['completed'] = true; // 送信完了のマーカーとして設定
+        }
       }
     }
   }
@@ -169,25 +168,45 @@ if (!$sendErrorUser || !$sendErrorAdmin) {
                   <p class="p-about-me-career__txt">
                     <?php echo nl2br(SCF::get('career')); ?>
                   </p>
+                <?php endwhile; ?>
+              <?php else : ?>
+                <p>投稿がありません</p>
+              <?php endif;
+            wp_reset_postdata();
+              ?>
                 </div>
               </div>
 
               <div class="p-about-me-txt__wrap">
                 <span class="p-about-me-txt__strong">スキル</span>
-                <?php $skills = SCF::get('skill'); ?>
+                <p class="p-about-me-comment">
+                  実務経験年数を自動で更新させるために、PHPでリストを連想配列にまとめ、値に開始年数を指定。<br>
+                  foreachで1件ずつ出力する際に現在の年と、開始年数を引いた値（実働年数）を動的に取得しています。<br>
+                  毎年数を更新していくのは忘れがち。。。プログラミングを使えば便利になるな。と感じました。
+                </p>
                 <ul class="p-about-me-career">
-                  <?php foreach ($skills as $skill) : ?>
-                    <li class="p-about-me-career__list">・<?php echo esc_html($skill); ?></li>
-                  <?php endforeach; ?>
+                  <?php
+
+                  $skills = [
+                    'HTML/css/Sass' => 2020,
+                    'Gitを使った共同開発' => 2021,
+                    'Wordpressオリジナルテーマ制作' => 2021,
+                    'Gulpを使ったサイト制作' => 2021,
+                    'PHP' => 2021,
+                    'JavaScript' => 2021,
+                    'Docker' => 2021,
+                  ];
+                  $current_year = date("Y");; ?>
+                  <?php foreach ($skills as $skill => $start_year) : ?>
+                    <?php $experience_years = $current_year - $start_year; ?>
+                    <li class="p-about-me-career__list">・<?php echo $skill ?> （実務経験 <span><?php echo $experience_years ?></span>年以上）</li>
+                  <?php endforeach ?>
+                  <!-- PHP Laravelを使ったwebアプリ制作は別途追加 -->
+                  <li class="p-about-me-career__list">・PHP Laravelを使ったwebアプリ制作（実務経験 1件　ユーザー登録更新、削除機能の実装を担当）</li>
                 </ul>
               </div>
             </div>
-          <?php endwhile; ?>
-        <?php else : ?>
-          <p>投稿がありません</p>
-        <?php endif;
-        wp_reset_postdata();
-        ?>
+
       </div>
     </div>
   </section>

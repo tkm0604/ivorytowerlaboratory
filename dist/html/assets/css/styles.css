@@ -404,6 +404,15 @@ img {
   letter-spacing: 0.05em;
 }
 
+.p-about-me-career__list span{
+  font-weight: 700;
+  color: #090909;
+}
+
+.p-about-me-comment{
+  margin: 10px 0;
+  font-size: 1.4rem;
+}
 .p-works {
   padding-top: 150px;
   margin-top: -150px;
