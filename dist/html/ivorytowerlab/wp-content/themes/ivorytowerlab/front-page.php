@@ -180,9 +180,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <div class="p-about-me-txt__wrap">
                 <span class="p-about-me-txt__strong">スキル</span>
                 <p class="p-about-me-comment">
-                  実務経験年数を自動で更新させるために、PHPでリストを連想配列にまとめ、値に開始年数を指定。<br>
+                  以下の実務経験年数を自動で更新させるために、PHPでリストを連想配列にまとめ、値に開始年数を指定。<br>
                   foreachで1件ずつ出力する際に現在の年と、開始年数を引いた値（実働年数）を動的に取得しています。<br>
-                  毎年数を更新していくのは忘れがち。。。プログラミングを使えば便利になるな。と感じました。
+                  <span style="color:#ff4901">赤色太字の数字部分は毎年自動で更新されます。</span><br>
+                  毎年数を更新していくのは忘れがち。。。<br>
+                  プログラミングを使えば細かな作業が自動化できて便利!!
                 </p>
                 <ul class="p-about-me-career">
                   <?php
