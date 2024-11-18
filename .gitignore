@@ -33,13 +33,16 @@ dist/html/ivorytowerlab/prod_wp-config.php
 dist/html/ivorytowerlab/wp-content/themes/twenty*/
 
 # Example plugin
-dist/html/ivorytowerlab/wp-content/plugins/hello.php
+dist/html/ivorytowerlab/wp-content/wpvivid_staging/
+dist/html/ivorytowerlab/wp-content/wpvivid_uploads/
+dist/html/ivorytowerlab/wp-content/wpvividbackups/
 
-# Uploads
+# uploads
 dist/html/ivorytowerlab/wp-content/uploads/
 
 # Log files
 *.log
+dist/html/ivorytowerlab/wp-content/debug.log
 
 # htaccess
 dist/html/ivorytowerlab/.htaccess

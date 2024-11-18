@@ -217,57 +217,135 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="p-works_bg">
       <div class="p-works__inner">
         <h2 class="c-section-title">Works</h2>
-
         <div class="p-works-contents">
-          <?php
-          $args = array(
-            'post_type' => 'works',
-            'posts_per_page' => -1
-          );
-          $works_query = new WP_Query($args);
+          <h3 class="p-works-contents__ttl">webアプリ</h3>
+          <div class="p-works-contents__inner">
+            <?php
+            $args = array(
+              'post_type' => 'works',
+              'posts_per_page' => -1,
+              'tax_query' => array(
+                array(
+                  'taxonomy' => 'web_type', // カスタムタクソノミー
+                  'field' => 'slug',        // タームをスラッグで指定
+                  'terms' => 'web_app',    // 表示したいターム
+                ),
+              ),
+            );
+            $works_query = new WP_Query($args);
 
-          if ($works_query->have_posts()) :
-            while ($works_query->have_posts()) : $works_query->the_post();
-          ?>
-              <article class="p-works-item">
+            if ($works_query->have_posts()) :
+              while ($works_query->have_posts()) : $works_query->the_post();
+            ?>
+                <article class="p-works-item webapp">
+                  <div class="webapp-img">
+                    <h3 class="p-works-item-txt__title"><?php the_title(); ?></h3>
+                    <?php if (has_post_thumbnail()) : ?>
+                      <a class="p-works_item__link" href="<?php echo SCF::get('url') ?>" target="_blank" rel="noopener noreferrer"><img class="p-works_item__link_img" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>"> </a>
+                    <?php endif ?>
+                    <div class="webapp-txt bottom">
+                      <p class="p-works-item-txt__heading">[サイトURL]</p>
+                      <a href="<?php echo SCF::get('url') ?>">
+                        <p><?php echo SCF::get('url') ?></p>
+                      </a>
+                      <p class="p-works-item-txt__heading">[使用技術]</p>
+                      <?php
+                      $technologies = SCF::get('technology'); ?>
+                      <ul class="p-works-item-txt__list">
+                        <?php foreach ($technologies as $technology) : ?>
+                          <li class="p-works-item-txt__list_item"><?php echo esc_html($technology); ?></li>
+                        <?php endforeach; ?>
+                      </ul>
+                      <?php if (SCF::get('git') !== "") : ?>
+                      <p class="p-works-item-txt__heading">[Git]</p>
+                      <p><a class="p-works-item-txt__link" href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
+                    <?php endif; ?>
+                    </div>
+                  </div>
+                  <div class="webapp-txt">
+                    <p class="p-works-item-txt__heading">[コメント]</p>
+                    <p><?php echo nl2br(SCF::get('comment')); ?></p>
 
-                <h3 class="p-works-item-txt__title"><?php the_title(); ?></h3>
-                <?php if (has_post_thumbnail()) : ?>
-                  <a class="p-works_item__link" href="<?php echo SCF::get('url') ?>" target="_blank" rel="noopener noreferrer"><img class="p-works_item__link_img" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>"> </a>
-                <?php endif ?>
-                <p class="p-works-item-txt__heading">[制作時期]</p>
-                <p><?php echo SCF::get('year'); ?>年</p>
-                <p class="p-works-item-txt__heading">[使用技術]</p>
-                <?php
-                $technologies = SCF::get('technology'); ?>
-                <ul class="p-works-item-txt__list">
-                  <?php foreach ($technologies as $technology) : ?>
-                    <li class="p-works-item-txt__list_item"><?php echo esc_html($technology); ?></li>
-                  <?php endforeach; ?>
-                </ul>
-                <?php if (SCF::get('git') !== "") : ?>
-                  <p class="p-works-item-txt__heading">[Git]</p>
-                  <p><a class="p-works-item-txt__link" href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
-                <?php endif; ?>
-                <p class="p-works-item-txt__heading">[コメント]</p>
-                <p><?php echo nl2br(SCF::get('comment')); ?></p>
-
-                <?php if (SCF::get('basic_id') !== "") : ?>
-                  <p class="p-works-item-txt__heading">[Basic認証]</p>
-                  <p>ID : <?php echo SCF::get('basic_id'); ?>/ PW : <?php echo SCF::get('basic_pw'); ?></p>
-                <?php endif ?>
-
-              </article>
-            <?php endwhile; ?>
-          <?php else : ?>
-            <p>投稿がありません</p>
-          <?php
-          endif;
-          wp_reset_postdata();
-          ?>
-
+                    <?php if (SCF::get('basic_id') !== "") : ?>
+                      <p class="p-works-item-txt__heading">[Basic認証]</p>
+                      <p>ID : <?php echo SCF::get('basic_id'); ?>/ PW : <?php echo SCF::get('basic_pw'); ?></p>
+                    <?php endif ?>
+                  </div>
+                </article>
+              <?php endwhile; ?>
+            <?php else : ?>
+              <p>投稿がありません</p>
+            <?php
+            endif;
+            wp_reset_postdata();
+            ?>
+          </div>
         </div>
 
+
+        <div class="p-works-contents">
+          <h3 class="p-works-contents__ttl">webサイト</h3>
+
+          <div class="p-works-contents__inner">
+            <?php
+            $args = array(
+              'post_type' => 'works',
+              'posts_per_page' => -1,
+              'tax_query' => array(
+                array(
+                  'taxonomy' => 'web_type', // カスタムタクソノミー
+                  'field' => 'slug',        // タームをスラッグで指定
+                  'terms' => 'web_site',    // 表示したいターム
+                ),
+              ),
+            );
+            $works_query = new WP_Query($args);
+
+            if ($works_query->have_posts()) :
+              while ($works_query->have_posts()) : $works_query->the_post();
+            ?>
+                <article class="p-works-item">
+
+                  <h3 class="p-works-item-txt__title"><?php the_title(); ?></h3>
+                  <?php if (has_post_thumbnail()) : ?>
+                    <a class="p-works_item__link" href="<?php echo SCF::get('url') ?>" target="_blank" rel="noopener noreferrer"><img class="p-works_item__link_img" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>"> </a>
+                  <?php endif ?>
+                  <p class="p-works-item-txt__heading">[サイトURL]</p>
+                  <p> <a href="">
+                      <?php  echo SCF::get('url'); ?>
+                    </a>
+                  </p>
+                  <p class="p-works-item-txt__heading">[使用技術]</p>
+                  <?php
+                  $technologies = SCF::get('technology'); ?>
+                  <ul class="p-works-item-txt__list">
+                    <?php foreach ($technologies as $technology) : ?>
+                      <li class="p-works-item-txt__list_item"><?php echo esc_html($technology); ?></li>
+                    <?php endforeach; ?>
+                  </ul>
+                  <?php if (SCF::get('git') !== "") : ?>
+                    <p class="p-works-item-txt__heading">[Git]</p>
+                    <p><a class="p-works-item-txt__link" href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
+                  <?php endif; ?>
+                  <p class="p-works-item-txt__heading">[コメント]</p>
+                  <p><?php echo nl2br(SCF::get('comment')); ?></p>
+
+                  <?php if (SCF::get('basic_id') !== "") : ?>
+                    <p class="p-works-item-txt__heading">[Basic認証]</p>
+                    <p>ID : <?php echo SCF::get('basic_id'); ?>/ PW : <?php echo SCF::get('basic_pw'); ?></p>
+                  <?php endif ?>
+
+                </article>
+              <?php endwhile; ?>
+            <?php else : ?>
+              <p>投稿がありません</p>
+            <?php
+            endif;
+            wp_reset_postdata();
+            ?>
+
+          </div>
+        </div>
       </div>
 
     </div>
