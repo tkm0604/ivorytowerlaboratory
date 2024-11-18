@@ -19,8 +19,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Maven+Pro:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/styles.css" media="all">
+<link rel="stylesheet" href="/assets/css/slick.css" media="all">
 <link href=”https://use.fontawesome.com/releases/v6.0.0/css/all.css” rel=”stylesheet”>
+<script defer src="/assets/js/jquery-3.7.1.min.js"></script>
 <script defer src="/assets/js/bundle.js"></script>
+<script defer src="/assets/js/slick.min.js"></script>
+<script defer src="/assets/js/script.js"></script>
 <script src="https://kit.fontawesome.com/c143f5855b.js" crossorigin="anonymous"></script>
 <?php wp_head(); ?>
 </head>

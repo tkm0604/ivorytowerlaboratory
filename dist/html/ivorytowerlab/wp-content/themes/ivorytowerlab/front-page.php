@@ -240,12 +240,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <article class="p-works-item webapp">
                   <div class="webapp-img">
                     <h3 class="p-works-item-txt__title"><?php the_title(); ?></h3>
-                    <?php if (has_post_thumbnail()) : ?>
-                      <a class="p-works_item__link" href="<?php echo SCF::get('url') ?>" target="_blank" rel="noopener noreferrer"><img class="p-works_item__link_img" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>"> </a>
-                    <?php endif ?>
+                    <ul class="slick01">
+                    <?php
+                      // 繰り返しフィールドのデータを取得
+                      $image_ids = SCF::get('slideImg');
+                      if (!empty($image_ids)) { // 画像データが空でない場合
+                          foreach ($image_ids as $image_id) {
+                              // 画像URLを取得
+                              $image_url = wp_get_attachment_url($image_id);
+                              if ($image_url) { // 画像URLが取得できた場合のみ表示
+                                  ?>
+                                  <li>
+                                      <img src="<?php echo esc_url($image_url); ?>" alt="">
+                                  </li>
+                                  <?php
+                              } else {
+                                  // URLが取得できない場合の処理（必要なら追加）
+                                  echo '<li>画像が見つかりません。</li>';
+                              }
+                          }
+                      } else {
+                          // 画像がない場合の処理（必要なら追加）
+                          echo '<li>画像が設定されていません。</li>';
+                      }
+                      ?>
+                    </ul>
+
                     <div class="webapp-txt bottom">
                       <p class="p-works-item-txt__heading">[サイトURL]</p>
-                      <a href="<?php echo SCF::get('url') ?>">
+                      <a href="<?php
+                      echo SCF::get('url') ?>">
                         <p><?php echo SCF::get('url') ?></p>
                       </a>
                       <p class="p-works-item-txt__heading">[使用技術]</p>
@@ -257,9 +281,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <?php endforeach; ?>
                       </ul>
                       <?php if (SCF::get('git') !== "") : ?>
-                      <p class="p-works-item-txt__heading">[Git]</p>
-                      <p><a class="p-works-item-txt__link" href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
-                    <?php endif; ?>
+                        <p class="p-works-item-txt__heading">[Git]</p>
+                        <p><a class="p-works-item-txt__link" href="<?php echo SCF::get('git'); ?>" target="_blank" rel="noopener noreferrer"><?php echo SCF::get('git'); ?></a></p>
+                      <?php endif; ?>
                     </div>
                   </div>
                   <div class="webapp-txt">
@@ -311,8 +335,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <a class="p-works_item__link" href="<?php echo SCF::get('url') ?>" target="_blank" rel="noopener noreferrer"><img class="p-works_item__link_img" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>"> </a>
                   <?php endif ?>
                   <p class="p-works-item-txt__heading">[サイトURL]</p>
-                  <p> <a href="">
-                      <?php  echo SCF::get('url'); ?>
+                  <p> <a href="<?php
+                      echo SCF::get('url') ?>">
+                      <?php echo SCF::get('url'); ?>
                     </a>
                   </p>
                   <p class="p-works-item-txt__heading">[使用技術]</p>

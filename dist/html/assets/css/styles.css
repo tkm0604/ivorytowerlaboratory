@@ -465,7 +465,7 @@ img {
 
 @media screen and (max-width: 803px) {
   .p-works-contents__ttl{
-    font-size: 2rem;
+    font-size: 2.4rem;
   }
 }
 
@@ -754,4 +754,12 @@ width: 40%;
   .u-sp-only-link {
     pointer-events: none;
   }
+}
+
+a{
+  transition: all 0.5s;
+}
+a:hover {
+  color: #5fa8d3;
+ opacity: 0.6;
 }
